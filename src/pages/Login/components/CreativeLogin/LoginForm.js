@@ -2,9 +2,11 @@
 import React, {Component} from 'react';
 import {Message} from '@alifd/next';
 import {login} from '@/api/login';
-
+import {observer} from 'mobx-react';
+import userStore from '@/store/User';
 import AuthForm from './AuthForm';
 
+@observer
 export default class LoginForm extends Component {
   static displayName = 'LoginForm';
 
@@ -26,6 +28,7 @@ export default class LoginForm extends Component {
     let ret = await login(values);
     if (ret.isSuccess) {
       Message.success('登录成功');
+      userStore.userInfo = {token: ret.data, ...values};
     }
     // 登录成功后做对应的逻辑处理
   };
@@ -78,13 +81,19 @@ export default class LoginForm extends Component {
     ];
 
     const initFields = {
-      name: '',
-      passwd: '',
+      username: '',
+      password: '',
       checkbox: false
     };
 
     const links = [{to: '/register', text: '立即注册'}, {to: '/forgetpassword', text: '找回密码'}];
 
-    return <AuthForm title="登录" config={config} initFields={initFields} formChange={this.formChange} handleSubmit={this.handleSubmit} links={links} />;
+    return (
+      <div>
+        {JSON.stringify(userStore.userInfo)}
+        {userStore.isLogin}
+        <AuthForm title="登录" config={config} initFields={initFields} formChange={this.formChange} handleSubmit={this.handleSubmit} links={links} />
+      </div>
+    );
   }
 }
