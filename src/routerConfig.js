@@ -2,58 +2,64 @@
 // 你可以调整 routerConfig 里的内容
 // 变量名 routerConfig 为 iceworks 检测关键字，请不要修改名称
 
-import UserLogin from './pages/UserLogin';
 import UserRegister from './pages/UserRegister';
 import Dashboard from './pages/Dashboard';
 import Reserve from './pages/Reserve';
 import Asset from './pages/Asset';
 import OrderList from './pages/OrderList';
 import Goods from './pages/Goods';
+import Shop from './pages/Shop';
 import Membership from './pages/Membership';
 import AddReserve from './pages/AddReserve';
+
+import Login from './pages/Login';
 import AddGoods from './pages/AddGoods';
 
 const routerConfig = [
   {
     path: '/user/login',
-    component: UserLogin,
+    component: Login
   },
   {
     path: '/user/register',
-    component: UserRegister,
+    component: UserRegister
   },
   {
     path: '/dashboard',
-    component: Dashboard,
+    component: Dashboard
   },
   {
     path: '/reserve',
-    component: Reserve,
+    component: Reserve
   },
   {
     path: '/asset',
-    component: Asset,
+    component: Asset
   },
   {
     path: '/goods',
-    component: Goods,
+    component: Goods
+  },
+  {
+    path: '/shop',
+    component: Shop
   },
   {
     path: '/order',
-    component: OrderList,
+    component: OrderList
   },
   {
     path: '/membership',
-    component: Membership,
+    component: Membership
   },
   {
     path: '/add/reserve',
-    component: AddReserve,
+    component: AddReserve
   },
   {
-    path: '/add/goods',
-    component: AddGoods,
-  },
+    path: '/add/shop',
+    component: AddGoods
+  }
 ];
 
 export default routerConfig;
