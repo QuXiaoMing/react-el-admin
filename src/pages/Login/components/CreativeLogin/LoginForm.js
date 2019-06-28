@@ -14,6 +14,12 @@ export default class LoginForm extends Component {
 
   static defaultProps = {};
 
+  componentDidMount() {
+    setTimeout(() => {
+      userStore.logout();
+    }, 1000);
+  }
+
   formChange = value => {
     console.log('formChange:', value);
   };
@@ -28,7 +34,7 @@ export default class LoginForm extends Component {
     let ret = await login(values);
     if (ret.isSuccess) {
       Message.success('登录成功');
-      userStore.userInfo = {token: ret.data, ...values};
+      userStore.userInfo = {token: ret.data.data, ...values};
     }
     // 登录成功后做对应的逻辑处理
   };
@@ -91,7 +97,6 @@ export default class LoginForm extends Component {
     return (
       <div>
         {JSON.stringify(userStore.userInfo)}
-        {userStore.isLogin}
         <AuthForm title="登录" config={config} initFields={initFields} formChange={this.formChange} handleSubmit={this.handleSubmit} links={links} />
       </div>
     );
