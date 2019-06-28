@@ -10,8 +10,14 @@ const hydrate = create({
 /**
  * 持久化数据
  */
-export default Cluss => {
+export default (Cluss, cb) => {
   let cluss = new Cluss();
-  hydrate(prefix(Cluss.name), cluss);
+  console.log('new', cluss);
+  hydrate(prefix(Cluss.name), cluss).then(() => {
+    console.log('用户加载成功');
+  });
+  if (typeof cb === 'function') {
+    cb();
+  }
   return cluss;
 };

@@ -14,6 +14,8 @@ import './index.scss';
 @observer
 export default class BasicLayout extends Component {
   render() {
+    console.log('userStore', userStore.userInfo);
+    console.log('userStore.isLogin', userStore.isLogin);
     return (
       userStore.isLogin ?
         <Layout

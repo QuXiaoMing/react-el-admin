@@ -1,9 +1,8 @@
 import {observable, computed, action} from 'mobx';
 import {persist} from 'mobx-persist';
 import {idDef, get} from '@/utils';
-import storePersist from './storePersist';
 
-class User {
+export class User {
   @persist('object') @observable userInfo = {};
 
   @computed get isLogin() {
@@ -16,4 +15,4 @@ class User {
     this.userInfo = {};
   }
 }
-export default storePersist(User);
+export default new User();
