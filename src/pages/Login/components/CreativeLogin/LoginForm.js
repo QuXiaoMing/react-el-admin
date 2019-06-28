@@ -1,5 +1,7 @@
 /* eslint react/no-string-refs:0 */
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {withRouter} from 'react-router-dom';
 import {Message} from '@alifd/next';
 import {login} from '@/api/login';
 import {observer} from 'mobx-react';
@@ -7,10 +9,9 @@ import userStore from '@/store/User';
 import AuthForm from './AuthForm';
 
 @observer
+@withRouter
 export default class LoginForm extends Component {
   static displayName = 'LoginForm';
-
-  static propTypes = {};
 
   static defaultProps = {};
 
@@ -34,7 +35,9 @@ export default class LoginForm extends Component {
     let ret = await login(values);
     if (ret.isSuccess) {
       Message.success('登录成功');
+      // window.aaa = this.props;
       userStore.userInfo = {token: ret.data.data, ...values};
+      this.props.history.push('/');
     }
     // 登录成功后做对应的逻辑处理
   };
@@ -96,7 +99,6 @@ export default class LoginForm extends Component {
 
     return (
       <div>
-        {JSON.stringify(userStore.userInfo)}
         <AuthForm title="登录" config={config} initFields={initFields} formChange={this.formChange} handleSubmit={this.handleSubmit} links={links} />
       </div>
     );

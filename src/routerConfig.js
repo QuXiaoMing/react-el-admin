@@ -18,48 +18,48 @@ import AddGoods from './pages/AddGoods';
 const routerConfig = [
   {
     path: '/user/login',
-    component: Login
+    component: Login,
   },
   {
     path: '/user/register',
-    component: UserRegister
+    component: UserRegister,
   },
   {
     path: '/dashboard',
-    component: Dashboard
+    component: Dashboard,
   },
   {
     path: '/reserve',
-    component: Reserve
+    component: Reserve,
   },
   {
     path: '/asset',
-    component: Asset
+    component: Asset,
   },
   {
     path: '/goods',
-    component: Goods
+    component: Goods,
   },
   {
     path: '/shop',
-    component: Shop
+    component: Shop,
   },
   {
     path: '/order',
-    component: OrderList
+    component: OrderList,
   },
   {
     path: '/membership',
-    component: Membership
+    component: Membership,
   },
   {
     path: '/add/reserve',
-    component: AddReserve
+    component: AddReserve,
   },
   {
     path: '/add/shop',
-    component: AddGoods
-  }
+    component: AddGoods,
+  },
 ];
 
 export default routerConfig;
