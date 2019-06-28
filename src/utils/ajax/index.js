@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {baseURL} from '@/config';
 import {get} from '@/utils';
-import {Message} from 'element-ui';
+import {Message} from '@alifd/next';
 
 import Result from './result';
 
@@ -10,7 +10,10 @@ const instance = axios.create({
   baseURL
   // timeout
 });
-
+function responseErrorHandler(result) {
+  console.log('result', result);
+  Message.error(result.message || '系统异常');
+}
 // 添加请求拦截器
 instance.interceptors.request.use(
   config => {
@@ -26,6 +29,10 @@ instance.interceptors.request.use(
 // 添加响应拦截器
 instance.interceptors.response.use(
   response => {
+    let result = new Result(response);
+    if (!result || !result.isSuccess) {
+      responseErrorHandler(result);
+    }
     // 对响应数据做点什么
     return new Result(response);
   },

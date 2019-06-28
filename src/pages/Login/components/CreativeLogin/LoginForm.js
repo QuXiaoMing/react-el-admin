@@ -1,6 +1,8 @@
 /* eslint react/no-string-refs:0 */
-import React, { Component } from 'react';
-import { Message } from '@alifd/next';
+import React, {Component} from 'react';
+import {Message} from '@alifd/next';
+import {login} from '@/api/login';
+
 import AuthForm from './AuthForm';
 
 export default class LoginForm extends Component {
@@ -10,17 +12,21 @@ export default class LoginForm extends Component {
 
   static defaultProps = {};
 
-  formChange = (value) => {
+  formChange = value => {
     console.log('formChange:', value);
   };
 
-  handleSubmit = (errors, values) => {
+  handleSubmit = async (errors, values) => {
     if (errors) {
       console.log('errors', errors);
       return;
     }
+
     console.log('values:', values);
-    Message.success('登录成功');
+    let ret = await login(values);
+    if (ret.isSuccess) {
+      Message.success('登录成功');
+    }
     // 登录成功后做对应的逻辑处理
   };
 
@@ -32,65 +38,53 @@ export default class LoginForm extends Component {
         componentProps: {
           placeholder: '用户名',
           size: 'large',
-          maxLength: 20,
+          maxLength: 20
         },
         formBinderProps: {
-          name: 'name',
+          name: 'username',
           required: true,
-          message: '必填',
-        },
+          message: '必填'
+        }
       },
       {
         label: '密码',
         component: 'Input',
         componentProps: {
           placeholder: '密码',
-          htmlType: 'passwd',
+          htmlType: 'password'
         },
         formBinderProps: {
-          name: 'passwd',
+          name: 'password',
           required: true,
-          message: '必填',
-        },
+          message: '必填'
+        }
       },
       {
         label: '记住账号',
         component: 'Checkbox',
         componentProps: {},
         formBinderProps: {
-          name: 'checkbox',
-        },
+          name: 'checkbox'
+        }
       },
       {
         label: '登录',
         component: 'Button',
         componentProps: {
-          type: 'primary',
+          type: 'primary'
         },
-        formBinderProps: {},
-      },
+        formBinderProps: {}
+      }
     ];
 
     const initFields = {
       name: '',
       passwd: '',
-      checkbox: false,
+      checkbox: false
     };
 
-    const links = [
-      { to: '/register', text: '立即注册' },
-      { to: '/forgetpassword', text: '找回密码' },
-    ];
+    const links = [{to: '/register', text: '立即注册'}, {to: '/forgetpassword', text: '找回密码'}];
 
-    return (
-      <AuthForm
-        title="登录"
-        config={config}
-        initFields={initFields}
-        formChange={this.formChange}
-        handleSubmit={this.handleSubmit}
-        links={links}
-      />
-    );
+    return <AuthForm title="登录" config={config} initFields={initFields} formChange={this.formChange} handleSubmit={this.handleSubmit} links={links} />;
   }
 }

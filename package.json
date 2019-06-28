@@ -25,6 +25,7 @@
     "@icedesign/theme": "^1.x",
     "bizcharts": "^3.2.2",
     "enquire-js": "^0.1.2",
+    "lodash-es": "^4.17.11",
     "lodash.clonedeep": "^4.5.0",
     "moment": "^2.23.0",
     "prop-types": "^15.5.8",
