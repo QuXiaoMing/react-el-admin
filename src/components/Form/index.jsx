@@ -37,7 +37,13 @@ export default class From extends Component {
       if (errors) {
         return;
       }
-      console.log({ values });
+      console.log({
+        values
+      });
+      console.log('this.props.onSubmit', this.props.onSubmit);
+      if (typeof this.props.onSubmit === 'function') {
+        this.props.onSubmit(values);
+      }
       // Message.success('提交成功');
     });
   };

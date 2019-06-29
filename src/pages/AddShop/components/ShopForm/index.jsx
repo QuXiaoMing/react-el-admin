@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
 import { Message } from '@alifd/next';
 import Form from '_c/Form';
+import { createShop } from '@/api/shop';
 import PageHead from '../../../../components/PageHead';
 
 export default class GoodsForm extends Component {
@@ -119,6 +120,18 @@ export default class GoodsForm extends Component {
     console.log('value', value);
   };
 
+  onSubmit = async (value) => {
+    try {
+      let ret = await createShop(value);
+      console.log('ret', ret);
+      if (ret && ret.isSuccess) {
+        Message.success('操作成功');
+      }
+    } catch (error) {
+      console.error('onSubmit', error.message);
+    }
+  }
+
   validateAllFormField = () => {
     this.refs.form.validateAll((errors, values) => {
       if (errors) {
@@ -134,7 +147,7 @@ export default class GoodsForm extends Component {
       <div>
         <PageHead title="添加店铺" />
         <IceContainer style={{ padding: '40px' }}>
-          <Form options={this.state.options}>
+          <Form options={this.state.options} onSubmit={this.onSubmit}>
             test
           </Form>
         </IceContainer>
