@@ -164,7 +164,7 @@ export default class From extends Component {
   // 输入框
   renderFormInput = option => {
     return (
-      <div className={styles.formItem} key={option.key}>
+      <div className={styles.formItem} required={option.required} key={option.key}>
         <div className={styles.formLabel}>{option.name}：</div>
         <IceFormBinder name={option.key} required={option.required} message={option.message || `${option.name}必填`}>
           <Input
@@ -182,7 +182,7 @@ export default class From extends Component {
   // 多选框组
   renderFormcheckboxGroup = option => {
     return (
-      <div className={styles.formItem} key={option.key}>
+      <div className={styles.formItem} required={option.required} key={option.key}>
         <div className={styles.formLabel}>{option.name}：</div>
         <IceFormBinder name={option.key} required={option.required} message={option.message || `${option.name}必填`}>
           <CheckboxGroup>
@@ -208,7 +208,7 @@ export default class From extends Component {
   // TimePicker
   renderFormTimePicker = (option) => {
     return (
-      <div className={styles.formItem} key={option.key}>
+      <div className={styles.formItem} required={option.required} key={option.key}>
         <div className={styles.formLabel}>{option.name}：</div>
         <IceFormBinder name={option.key} required={option.required} message={option.message || `${option.name}必填`}>
           <TimePicker />
