@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GoodsForm from './components/GoodsForm';
+import GoodsForm from './components/ShopForm';
 
 export default class AddGoods extends Component {
   render() {

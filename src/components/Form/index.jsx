@@ -25,112 +25,7 @@ const { Group: CheckboxGroup } = Checkbox;
 
 export default class From extends Component {
   state = {
-    value: {},
-    options: [
-      {
-        formType: 'input',
-        name: '店铺名称',
-        key: 'name',
-        placeholder: '请输入店铺名称',
-        required: true
-      },
-      {
-        formType: 'input',
-        name: '门面地址',
-        key: 'address',
-        required: true
-
-      },
-      {
-        formType: 'input',
-        name: '联系电话',
-        key: 'phone',
-        required: true
-      },
-      {
-        formType: 'input',
-        name: '店铺图片地址',
-        key: 'image_path',
-      },
-      {
-        formType: 'input',
-        name: '运费',
-        key: 'float_delivery_fee'
-      },
-      {
-        formType: 'input',
-        name: '起送价',
-        key: 'float_minimum_order_amount'
-      },
-      {
-        formType: 'input',
-        name: '餐馆介绍',
-        key: 'description'
-      },
-      {
-        formType: 'input',
-        name: '店铺标语',
-        key: 'promotion_info'
-      },
-      {
-        formType: 'checkboxGroup',
-        name: '店铺特点',
-        key: 'promotion_feature',
-        list: [
-          {
-            label: '品牌保证',
-            value: 'is_premium'
-          },
-          {
-            label: '蜂鸟专送',
-            value: 'delivery_mode'
-          },
-          {
-            label: '新开店铺',
-            value: 'is_new'
-          },
-          {
-            label: '支持保险',
-            value: 'is_bao'
-          },
-          {
-            label: '准时达',
-            value: 'is_zhun'
-          },
-          {
-            label: '开发票',
-            value: 'is_piao'
-          },
-        ]
-      },
-      {
-        formType: 'input',
-        name: '营业执照图片地址',
-        key: 'business_license_image'
-      },
-      {
-        formType: 'input',
-        name: '餐饮服务许可证图片地址',
-        key: 'catering_service_license_image'
-      },
-      {
-        formType: 'input',
-        name: '商铺活动',
-        key: 'activities'
-      },
-      {
-        formType: 'timePicker',
-        name: '开始营业时间',
-        key: 'startTime',
-        required: true
-      },
-      {
-        formType: 'timePicker',
-        name: '结束营业时间',
-        key: 'endTime',
-        required: true
-      },
-    ]
+    value: {}
   };
 
   formChange = (value) => {
@@ -228,7 +123,7 @@ export default class From extends Component {
         onChange={this.formChange}
         ref="form"
       >
-        {this.state.options.map(option => {
+        {this.props.options.map(option => {
           return this.renderFormItem(option);
         })}
         <Button type="primary" onClick={this.validateAllFormField}>
