@@ -14,52 +14,57 @@ import AddReserve from './pages/AddReserve';
 
 import Login from './pages/Login';
 import AddGoods from './pages/AddGoods';
+import AddShop from './pages/AddShop';
 
 const routerConfig = [
   {
     path: '/user/login',
-    component: Login,
+    component: Login
   },
   {
     path: '/user/register',
-    component: UserRegister,
+    component: UserRegister
   },
   {
     path: '/dashboard',
-    component: Dashboard,
+    component: Dashboard
   },
   {
     path: '/reserve',
-    component: Reserve,
+    component: Reserve
   },
   {
     path: '/asset',
-    component: Asset,
+    component: Asset
   },
   {
     path: '/goods',
-    component: Goods,
+    component: Goods
   },
   {
     path: '/shop',
-    component: Shop,
+    component: Shop
   },
   {
     path: '/order',
-    component: OrderList,
+    component: OrderList
   },
   {
     path: '/membership',
-    component: Membership,
+    component: Membership
   },
   {
     path: '/add/reserve',
-    component: AddReserve,
+    component: AddReserve
+  },
+  {
+    path: '/add/goods',
+    component: AddGoods
   },
   {
     path: '/add/shop',
-    component: AddGoods,
-  },
+    component: AddShop
+  }
 ];
 
 export default routerConfig;

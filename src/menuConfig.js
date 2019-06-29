@@ -8,73 +8,73 @@ const headerMenuConfig = [
     path: 'https://github.com/alibaba/ice',
     external: true,
     newWindow: true,
-    icon: 'message',
+    icon: 'message'
   },
   {
     name: '帮助',
     path: 'https://alibaba.github.io/ice',
     external: true,
     newWindow: true,
-    icon: 'bangzhu',
+    icon: 'bangzhu'
   },
   {
     name: '退出',
     path: '/user/login',
-    icon: 'yonghu',
-  },
+    icon: 'yonghu'
+  }
 ];
 
 const asideMenuConfig = [
   {
     name: '工作台',
     path: '/dashboard',
-    icon: 'home2',
+    icon: 'home2'
   },
   {
     name: '资产管理',
     path: '/asset',
-    icon: 'cascades',
+    icon: 'cascades'
   },
   {
     name: '商品管理',
     path: '/goods',
-    icon: 'shopcar',
+    icon: 'shopcar'
   },
   {
     name: '添加商品',
     path: '/add/goods',
-    icon: 'publish',
+    icon: 'publish'
   },
   {
     name: '店铺管理',
     path: '/shop',
-    icon: 'shopcar',
+    icon: 'shopcar'
   },
   {
-    name: '添加商品',
+    name: '添加店铺',
     path: '/add/shop',
-    icon: 'publish',
+    icon: 'publish'
   },
   {
     name: '预约管理',
     path: '/reserve',
-    icon: 'clock',
+    icon: 'clock'
   },
   {
     name: '添加预约',
     path: '/add/reserve',
-    icon: 'edit2',
+    icon: 'edit2'
   },
   {
     name: '订单管理',
     path: '/order',
-    icon: 'shopcar',
+    icon: 'shopcar'
   },
   {
     name: '会员管理',
     path: '/membership',
-    icon: 'menu',
-  },
+    icon: 'menu'
+  }
 ];
 
-export { headerMenuConfig, asideMenuConfig };
+export {headerMenuConfig, asideMenuConfig};
