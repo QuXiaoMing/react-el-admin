@@ -3,11 +3,12 @@ import React, { Component } from 'react';
 import {
   Input,
   Button,
-  NumberPicker,
-  DatePicker,
+  TimePicker,
+  // NumberPicker,
+  // DatePicker,
   Checkbox,
-  Radio,
-  Select,
+  // Radio,
+  // Select,
 } from '@alifd/next';
 import {
   FormBinderWrapper as IceFormBinderWrapper,
@@ -17,10 +18,10 @@ import {
 import styles from './index.module.scss';
 
 
-const { Option } = Select;
+// const { Option } = Select;
 const { Group: CheckboxGroup } = Checkbox;
-const { Group: RadioGroup } = Radio;
-const { RangePicker } = DatePicker;
+// const { Group: RadioGroup } = Radio;
+// const { RangePicker } = DatePicker;
 
 export default class From extends Component {
   state = {
@@ -31,21 +32,25 @@ export default class From extends Component {
         name: '店铺名称',
         key: 'name',
         placeholder: '请输入店铺名称',
+        required: true
       },
       {
         formType: 'input',
         name: '门面地址',
-        key: 'address'
+        key: 'address',
+        required: true
+
       },
       {
         formType: 'input',
         name: '联系电话',
-        key: 'phone'
+        key: 'phone',
+        required: true
       },
       {
         formType: 'input',
         name: '店铺图片地址',
-        key: 'image_path'
+        key: 'image_path',
       },
       {
         formType: 'input',
@@ -113,6 +118,18 @@ export default class From extends Component {
         name: '商铺活动',
         key: 'activities'
       },
+      {
+        formType: 'timePicker',
+        name: '开始营业时间',
+        key: 'startTime',
+        required: true
+      },
+      {
+        formType: 'timePicker',
+        name: '结束营业时间',
+        key: 'endTime',
+        required: true
+      },
     ]
   };
 
@@ -126,7 +143,7 @@ export default class From extends Component {
         return;
       }
       console.log({ values });
-      Message.success('提交成功');
+      // Message.success('提交成功');
     });
   };
 
@@ -137,6 +154,8 @@ export default class From extends Component {
         return this.renderFormInput(option);
       case 'checkboxGroup':
         return this.renderFormcheckboxGroup(option);
+      case 'timePicker':
+        return this.renderFormTimePicker(option);
       default:
         break;
     }
@@ -147,7 +166,7 @@ export default class From extends Component {
     return (
       <div className={styles.formItem} key={option.key}>
         <div className={styles.formLabel}>{option.name}：</div>
-        <IceFormBinder name={option.key} required message={option.message || `${option.name}必填`}>
+        <IceFormBinder name={option.key} required={option.required} message={option.message || `${option.name}必填`}>
           <Input
             placeholder={option.placeholder || `请输入${option.name}`}
             style={{ width: '400px' }}
@@ -165,7 +184,7 @@ export default class From extends Component {
     return (
       <div className={styles.formItem} key={option.key}>
         <div className={styles.formLabel}>{option.name}：</div>
-        <IceFormBinder name={option.key} required message={option.message || `${option.name}必填`}>
+        <IceFormBinder name={option.key} required={option.required} message={option.message || `${option.name}必填`}>
           <CheckboxGroup>
             {
               option.list.map(e => this.renderFormcheckbox(e))
@@ -183,6 +202,21 @@ export default class From extends Component {
   renderFormcheckbox = option => {
     return (
       <Checkbox key={option.value} id={option.value} value={option.value}>{option.label}</Checkbox>
+    );
+  }
+
+  // TimePicker
+  renderFormTimePicker = (option) => {
+    return (
+      <div className={styles.formItem} key={option.key}>
+        <div className={styles.formLabel}>{option.name}：</div>
+        <IceFormBinder name={option.key} required={option.required} message={option.message || `${option.name}必填`}>
+          <TimePicker />
+        </IceFormBinder>
+        <div className={styles.formError}>
+          <IceFormError name={option.key} />
+        </div>
+      </div>
     );
   }
 
