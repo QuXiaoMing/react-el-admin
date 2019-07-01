@@ -7,6 +7,7 @@ import styles from './index.module.scss';
 
 export default class GoodsTable extends Component {
   state = {
+    total: 0,
     current: 1,
     isLoading: false,
     data: [],
@@ -20,15 +21,17 @@ export default class GoodsTable extends Component {
     this.setState(
       {
         isLoading: true,
+        total: 0
       },
       async () => {
         try {
           let ret = await shopList();
-          console.log('TCL: GoodsTable -> fetchData -> ret', ret)
+          console.log('TCL: GoodsTable -> fetchData -> ret', ret);
           if (ret && ret.isSuccess) {
             this.setState({
               data: ret.data.list,
               isLoading: false,
+              total: ret.data.total
             });
           }
           this.setState({
@@ -37,12 +40,6 @@ export default class GoodsTable extends Component {
         } catch (error) {
           console.error('TCL: GoodsTable -> fetchData -> error', error);
         }
-        // this.mockApi(len).then((data) => {
-        //   this.setState({
-        //     data,
-        //     isLoading: false,
-        //   });
-        // });
       }
     );
   };
@@ -97,7 +94,7 @@ export default class GoodsTable extends Component {
   };
 
   render() {
-    const { isLoading, data, current } = this.state;
+    const { isLoading, data, current, total } = this.state;
 
     return (
       <div className={styles.container}>
@@ -119,6 +116,7 @@ export default class GoodsTable extends Component {
           <Pagination
             className={styles.pagination}
             current={current}
+            total={total}
             onChange={this.handlePaginationChange}
           />
         </IceContainer>
