@@ -18,7 +18,7 @@ export default class GoodsTable extends Component {
     this.fetchData();
   }
 
-  fetchData = () => {
+  fetchData = (params) => {
     this.setState(
       {
         isLoading: true,
@@ -29,7 +29,8 @@ export default class GoodsTable extends Component {
           let { pageSize, pageNum } = this.state;
           let ret = await shopList({
             pageSize,
-            pageNum
+            pageNum,
+            ...params
           });
           console.log('TCL: GoodsTable -> fetchData -> ret', ret);
           if (ret && ret.isSuccess) {
@@ -60,8 +61,9 @@ export default class GoodsTable extends Component {
     );
   };
 
-  handleFilterChange = () => {
-    this.fetchData();
+  handleFilterChange = (...arg) => {
+    console.log('handleFilterChange', ...arg);
+    this.fetchData(...arg);
   };
 
   handleDelete = (id) => {
@@ -76,7 +78,7 @@ export default class GoodsTable extends Component {
           }
         }).catch(error => {
           console.error('删除失败', error.message);
-        })
+        });
       },
     });
   };
