@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Table, Pagination, Button, Dialog } from '@alifd/next';
+import { Table, Pagination, Button, Dialog, Message } from '@alifd/next';
 import IceContainer from '@icedesign/container';
-import { shopList } from '@/api/shop';
+import { shopList, deleteShop } from '@/api/shop';
 import Filter from '../Filter';
 import styles from './index.module.scss';
 
@@ -64,12 +64,19 @@ export default class GoodsTable extends Component {
     this.fetchData();
   };
 
-  handleDelete = () => {
+  handleDelete = (id) => {
     Dialog.confirm({
       title: '提示',
       content: '确认删除吗',
       onOk: () => {
-        this.fetchData();
+        deleteShop(id).then(ret => {
+          if (ret && ret.isSuccess) {
+            Message.success('删除成功');
+            this.fetchData();
+          }
+        }).catch(error => {
+          console.error('删除失败', error.message);
+        })
       },
     });
   };
@@ -81,7 +88,7 @@ export default class GoodsTable extends Component {
     });
   };
 
-  renderOper = () => {
+  renderOper = (val, index, { id }) => {
     return (
       <div>
         <Button
@@ -91,7 +98,7 @@ export default class GoodsTable extends Component {
         >
           详情
         </Button>
-        <Button type="normal" warning onClick={this.handleDelete}>
+        <Button type="normal" warning onClick={() => this.handleDelete(id)}>
           删除
         </Button>
       </div>
