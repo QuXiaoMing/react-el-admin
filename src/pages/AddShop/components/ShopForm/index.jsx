@@ -8,7 +8,6 @@ import PageHead from '../../../../components/PageHead';
 
 export default class GoodsForm extends Component {
   state = {
-    value: {},
     options: [
       {
         formType: 'input',

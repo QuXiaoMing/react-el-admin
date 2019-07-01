@@ -7,8 +7,9 @@ import styles from './index.module.scss';
 
 export default class GoodsTable extends Component {
   state = {
+    pageSize: 10,
     total: 0,
-    current: 1,
+    pageNum: 1,
     isLoading: false,
     data: [],
   };
@@ -25,7 +26,11 @@ export default class GoodsTable extends Component {
       },
       async () => {
         try {
-          let ret = await shopList();
+          let { pageSize, pageNum } = this.state;
+          let ret = await shopList({
+            pageSize,
+            pageNum
+          });
           console.log('TCL: GoodsTable -> fetchData -> ret', ret);
           if (ret && ret.isSuccess) {
             this.setState({
@@ -44,10 +49,10 @@ export default class GoodsTable extends Component {
     );
   };
 
-  handlePaginationChange = (current) => {
+  handlePaginationChange = (pageNum) => {
     this.setState(
       {
-        current,
+        pageNum,
       },
       () => {
         this.fetchData();
@@ -56,7 +61,7 @@ export default class GoodsTable extends Component {
   };
 
   handleFilterChange = () => {
-    this.fetchData(5);
+    this.fetchData();
   };
 
   handleDelete = () => {
@@ -64,7 +69,7 @@ export default class GoodsTable extends Component {
       title: '提示',
       content: '确认删除吗',
       onOk: () => {
-        this.fetchData(10);
+        this.fetchData();
       },
     });
   };
@@ -94,7 +99,7 @@ export default class GoodsTable extends Component {
   };
 
   render() {
-    const { isLoading, data, current, total } = this.state;
+    const { isLoading, data, pageNum, total, pageSize } = this.state;
 
     return (
       <div className={styles.container}>
@@ -115,8 +120,9 @@ export default class GoodsTable extends Component {
           </Table>
           <Pagination
             className={styles.pagination}
-            current={current}
+            current={pageNum}
             total={total}
+            pageSize={pageSize}
             onChange={this.handlePaginationChange}
           />
         </IceContainer>
