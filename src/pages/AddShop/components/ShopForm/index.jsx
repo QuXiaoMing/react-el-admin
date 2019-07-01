@@ -19,10 +19,15 @@ export default class GoodsForm extends Component {
       },
       {
         formType: 'input',
+        name: '店铺类型',
+        key: 'category',
+        required: true
+      },
+      {
+        formType: 'input',
         name: '门面地址',
         key: 'address',
         required: true
-
       },
       {
         formType: 'input',
