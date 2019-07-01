@@ -1,27 +1,9 @@
 import React, { Component } from 'react';
 import { Table, Pagination, Button, Dialog } from '@alifd/next';
 import IceContainer from '@icedesign/container';
+import { shopList } from '@/api/shop';
 import Filter from '../Filter';
 import styles from './index.module.scss';
-
-// Random Numbers
-const random = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-};
-
-// MOCK 数据，实际业务按需进行替换
-const getData = (length = 10) => {
-  return Array.from({ length }).map(() => {
-    return {
-      name: ['蓝牙音箱', '天猫精灵', '智能机器人'][random(0, 2)],
-      cate: ['数码', '智能'][random(0, 1)],
-      tag: ['新品', '预售'][random(0, 1)],
-      store: ['余杭盒马店', '滨江盒马店', '西湖盒马店'][random(0, 2)],
-      sales: random(1000, 2000),
-      service: ['可预约', '可体验'][random(0, 1)],
-    };
-  });
-};
 
 export default class GoodsTable extends Component {
   state = {
@@ -34,26 +16,33 @@ export default class GoodsTable extends Component {
     this.fetchData();
   }
 
-  mockApi = (len) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(getData(len));
-      }, 600);
-    });
-  };
-
-  fetchData = (len) => {
+  fetchData = () => {
     this.setState(
       {
         isLoading: true,
       },
-      () => {
-        this.mockApi(len).then((data) => {
+      async () => {
+        try {
+          let ret = await shopList();
+          console.log('TCL: GoodsTable -> fetchData -> ret', ret)
+          if (ret && ret.isSuccess) {
+            this.setState({
+              data: ret.data.list,
+              isLoading: false,
+            });
+          }
           this.setState({
-            data,
             isLoading: false,
           });
-        });
+        } catch (error) {
+          console.error('TCL: GoodsTable -> fetchData -> error', error);
+        }
+        // this.mockApi(len).then((data) => {
+        //   this.setState({
+        //     data,
+        //     isLoading: false,
+        //   });
+        // });
       }
     );
   };
@@ -118,11 +107,8 @@ export default class GoodsTable extends Component {
         <IceContainer>
           <Table loading={isLoading} dataSource={data} hasBorder={false}>
             <Table.Column title="商品名称" dataIndex="name" />
-            <Table.Column title="商品分类" dataIndex="cate" />
-            <Table.Column title="商品标签" dataIndex="tag" />
-            <Table.Column title="在售门店" dataIndex="store" />
-            <Table.Column title="总销量" dataIndex="sales" />
-            <Table.Column title="商品服务" dataIndex="service" />
+            <Table.Column title="商品分类" dataIndex="category" />
+            <Table.Column title="门店地址" dataIndex="address" />
             <Table.Column
               title="操作"
               width={200}
@@ -140,5 +126,3 @@ export default class GoodsTable extends Component {
     );
   }
 }
-
-

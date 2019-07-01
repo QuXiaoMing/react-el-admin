@@ -10,7 +10,7 @@ export default class Result {
   }
 
   get data() {
-    return get(this, 'response.data');
+    return get(this, 'response.data.data');
   }
 
   get code() {
