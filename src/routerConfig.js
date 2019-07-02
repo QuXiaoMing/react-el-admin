@@ -11,7 +11,8 @@ import Goods from './pages/Goods';
 import Shop from './pages/Shop';
 import Membership from './pages/Membership';
 import AddReserve from './pages/AddReserve';
-
+import Dic from './pages/Dic/Dic';
+import AddDic from './pages/Dic/AddDic';
 import Login from './pages/Login';
 import AddGoods from './pages/AddGoods';
 import AddShop from './pages/AddShop';
@@ -64,6 +65,15 @@ const routerConfig = [
   {
     path: '/add/shop',
     component: AddShop
+  },
+  // 字典
+  {
+    path: '/dic',
+    component: Dic
+  },
+  {
+    path: '/dic/add',
+    component: AddDic
   }
 ];
 

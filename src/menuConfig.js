@@ -74,6 +74,11 @@ const asideMenuConfig = [
     name: '会员管理',
     path: '/membership',
     icon: 'menu'
+  },
+  {
+    name: '字典管理',
+    path: '/dic',
+    icon: 'menu'
   }
 ];
 
