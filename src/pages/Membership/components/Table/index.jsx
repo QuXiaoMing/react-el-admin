@@ -1,33 +1,15 @@
 import React, { Component } from 'react';
 import { Table, Pagination, Button, Dialog } from '@alifd/next';
 import IceContainer from '@icedesign/container';
+import { userList } from '@/api/user';
 import FilterTag from '../FilterTag';
 import FilterForm from '../FilterForm';
 import styles from './index.module.scss';
 
-// Random Numbers
-const random = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-};
-
-// MOCK 数据，实际业务按需进行替换
-const getData = (length = 10) => {
-  return Array.from({ length }).map(() => {
-    return {
-      name: ['淘小宝', '淘二宝'][random(0, 1)],
-      level: ['普通会员', '白银会员', '黄金会员', 'VIP 会员'][random(0, 3)],
-      balance: random(10000, 100000),
-      accumulative: random(50000, 100000),
-      regdate: `2018-12-1${random(1, 9)}`,
-      birthday: `1992-10-1${random(1, 9)}`,
-      store: ['余杭盒马店', '滨江盒马店', '西湖盒马店'][random(0, 2)],
-    };
-  });
-};
-
 export default class GoodsTable extends Component {
   state = {
     current: 1,
+    total: 0,
     isLoading: false,
     data: [],
   };
@@ -36,26 +18,27 @@ export default class GoodsTable extends Component {
     this.fetchData();
   }
 
-  mockApi = (len) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(getData(len));
-      }, 600);
-    });
-  };
-
-  fetchData = (len) => {
+  fetchData = () => {
     this.setState(
       {
         isLoading: true,
       },
-      () => {
-        this.mockApi(len).then((data) => {
+      async () => {
+        try {
+          let ret = await userList();
+          if (ret && ret.isSuccess) {
+            this.setState({
+              data: ret.data.list,
+              total: ret.data.total,
+              isLoading: false,
+            });
+          }
+        } catch (e) {
+          console.error('userList', e.message);
           this.setState({
-            data,
             isLoading: false,
           });
-        });
+        }
       }
     );
   };
@@ -110,7 +93,7 @@ export default class GoodsTable extends Component {
   };
 
   render() {
-    const { isLoading, data, current } = this.state;
+    const { isLoading, data, current, total } = this.state;
 
     return (
       <div className={styles.container}>
@@ -120,11 +103,11 @@ export default class GoodsTable extends Component {
         </IceContainer>
         <IceContainer>
           <Table loading={isLoading} dataSource={data} hasBorder={false}>
-            <Table.Column title="会员名称" dataIndex="name" />
-            <Table.Column title="会员等级" dataIndex="level" />
+            <Table.Column title="会员名称" dataIndex="user_name" />
+            <Table.Column title="会员等级" dataIndex="roles" />
             <Table.Column title="会员余额(元)" dataIndex="balance" />
             <Table.Column title="累计消费(元)" dataIndex="accumulative" />
-            <Table.Column title="注册时间" dataIndex="regdate" />
+            <Table.Column title="注册时间" dataIndex="create_at" />
             <Table.Column title="生日时间" dataIndex="birthday" />
             <Table.Column title="归属门店" dataIndex="store" />
             <Table.Column
@@ -137,6 +120,7 @@ export default class GoodsTable extends Component {
           <Pagination
             className={styles.pagination}
             current={current}
+            total={total}
             onChange={this.handlePaginationChange}
           />
         </IceContainer>
