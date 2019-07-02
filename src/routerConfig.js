@@ -72,7 +72,7 @@ const routerConfig = [
     component: Dic
   },
   {
-    path: '/dic/add',
+    path: '/add/dic',
     component: AddDic
   }
 ];

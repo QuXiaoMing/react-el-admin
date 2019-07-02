@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import Table from './components/Table';
 import PageHead from '@/components/PageHead';
+import Table from './components/Table';
 
 @withRouter
-export default class Shop extends Component {
+export default class Dic extends Component {
   handleClick = () => {
-    this.props.history.push('add/Shop');
+    this.props.history.push('add/dic');
   };
 
   render() {
     return (
       <div>
-        <PageHead title="店铺管理" buttonText="添加店铺" onClick={this.handleClick} />
+        <PageHead title="字典管理" buttonText="添加字段" onClick={this.handleClick} />
         <Table />
       </div>
     );

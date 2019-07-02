@@ -92,18 +92,9 @@ export default class GoodsTable extends Component {
 
   renderOper = (val, index, { id }) => {
     return (
-      <div>
-        <Button
-          type="primary"
-          style={{ marginRight: '5px' }}
-          onClick={this.handleDetail}
-        >
-          详情
-        </Button>
-        <Button type="normal" warning onClick={() => this.handleDelete(id)}>
-          删除
-        </Button>
-      </div>
+      <Button type="normal" warning onClick={() => this.handleDelete(id)}>
+        删除
+      </Button>
     );
   };
 
@@ -117,9 +108,10 @@ export default class GoodsTable extends Component {
         </IceContainer>
         <IceContainer>
           <Table loading={isLoading} dataSource={data} hasBorder={false}>
-            <Table.Column title="商品名称" dataIndex="name" />
-            <Table.Column title="商品分类" dataIndex="category" />
-            <Table.Column title="门店地址" dataIndex="address" />
+            <Table.Column title="字段名称" dataIndex="name" />
+            <Table.Column title="key" dataIndex="key" />
+            <Table.Column title="value" dataIndex="value" />
+            <Table.Column title="名称" dataIndex="text" />
             <Table.Column
               title="操作"
               width={200}
