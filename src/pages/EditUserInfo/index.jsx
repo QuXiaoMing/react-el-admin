@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Dialog } from '@alifd/next';
+import { Button, Message } from '@alifd/next';
 import Form from '@/components/Form/index.jsx';
 import { withRouter, Redirect } from 'react-router-dom';
 import { getUserInfo } from '@/api/user';
@@ -62,13 +62,23 @@ export default class EditUserInfo extends Component {
     }
   }
 
+  onSubmit = (values) => {
+    try {
+      if (values.password !== values.newPassword) {
+        Message.error('两次密码不一致');
+      }
+    } catch (error) {
+      console.error('onSubmit', error.message);
+    }
+  }
+
   componentWillMount() {
     this.fetechData();
   }
   render() {
     return (
       this.id ?
-        <Form options={this.state.options}>1</Form> :
+        <Form options={this.state.options} onSubmit={this.onSubmit} /> :
         <Redirect to="/membership" />
     );
   }
