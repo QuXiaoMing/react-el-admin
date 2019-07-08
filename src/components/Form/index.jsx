@@ -29,6 +29,12 @@ export default class From extends Component {
     value: {}
   };
 
+  componentWillMount() {
+    if (this.props.value) {
+      this.state.value = this.props.value;
+    }
+  }
+
   formChange = (value) => {
     console.log('value', value);
   };

@@ -7,6 +7,8 @@ import { getUserInfo } from '@/api/user';
 @withRouter
 export default class EditUserInfo extends Component {
   state = {
+    loading: true,
+    value: {},
     options: [
       {
         name: '用户名',
@@ -54,11 +56,12 @@ export default class EditUserInfo extends Component {
       let ret = await getUserInfo(this.id);
       if (ret.isSuccess) {
         console.log('userInfo', ret.data);
+        this.setState({ value: ret.data, loading: false });
       } else {
         this.props.history.push('/membership');
       }
     } catch (error) {
-      console.error('家在用户信息失败');
+      console.error('加载用户信息失败', error.message);
     }
   }
 
@@ -78,7 +81,8 @@ export default class EditUserInfo extends Component {
   render() {
     return (
       this.id ?
-        <Form options={this.state.options} onSubmit={this.onSubmit} /> :
+        (this.state.loading ? <div></div> :
+          <Form options={this.state.options} onSubmit={this.onSubmit} value={this.state.value} />) :
         <Redirect to="/membership" />
     );
   }
