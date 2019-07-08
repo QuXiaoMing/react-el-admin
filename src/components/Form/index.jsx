@@ -4,6 +4,7 @@ import {
   Input,
   Button,
   TimePicker,
+  Select,
   // NumberPicker,
   // DatePicker,
   Checkbox,
@@ -50,7 +51,10 @@ export default class From extends Component {
 
   renderFormItem = (option = {}) => {
     let { formType } = option;
+    console.log('inputType', formType, option);
     switch (formType) {
+      case 'select':
+        return this.renderFormSelect(option);
       case 'input':
         return this.renderFormInput(option);
       case 'password':
@@ -64,6 +68,23 @@ export default class From extends Component {
     }
   }
 
+  // 下拉框
+  renderFormSelect = (option) => {
+    return (
+      <div className={styles.formItem} required={option.required} key={option.key}>
+        <div className={styles.formLabel}>{option.name}：</div>
+        <IceFormBinder name={option.key} required={option.required} message={option.message || `${option.name}必填`}>
+          <Select>
+            {
+              option.options.map((e, index) => (<Select.Option key={index} value={e.value} disabled={e.disabled}>{e.label}</Select.Option>))
+            }
+          </Select>
+        </IceFormBinder>
+        <div className={styles.formError}>
+          <IceFormError name={option.key} />
+        </div>
+      </div>);
+  }
   // 输入框
   renderFormInput = (option, { password } = {}) => {
     return (

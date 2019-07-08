@@ -23,7 +23,7 @@ export default class EditUserInfo extends Component {
       }, {
         name: '性别',
         key: 'sex',
-        inputType: 'select',
+        formType: 'select',
         options: [
           {
             label: '男',
