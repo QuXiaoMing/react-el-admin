@@ -53,22 +53,26 @@ export default class From extends Component {
     switch (formType) {
       case 'input':
         return this.renderFormInput(option);
+      case 'password':
+        return this.renderFormInput(option, { password: true });
       case 'checkboxGroup':
         return this.renderFormcheckboxGroup(option);
       case 'timePicker':
         return this.renderFormTimePicker(option);
       default:
-        break;
+        return this.renderFormInput(option);
     }
   }
 
   // 输入框
-  renderFormInput = option => {
+  renderFormInput = (option, { password } = {}) => {
     return (
       <div className={styles.formItem} required={option.required} key={option.key}>
         <div className={styles.formLabel}>{option.name}：</div>
         <IceFormBinder name={option.key} required={option.required} message={option.message || `${option.name}必填`}>
           <Input
+            readOnly={option.readOnly === true || option.readOnly === 'read-only'}
+            htmlType={password ? 'password' : 'text'}
             placeholder={option.placeholder || `请输入${option.name}`}
             style={{ width: '400px' }}
           />

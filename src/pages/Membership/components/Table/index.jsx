@@ -5,7 +5,9 @@ import { userList } from '@/api/user';
 import FilterTag from '../FilterTag';
 import FilterForm from '../FilterForm';
 import styles from './index.module.scss';
+import { withRouter } from 'react-router-dom';
 
+@withRouter
 export default class GoodsTable extends Component {
   state = {
     current: 1,
@@ -68,20 +70,18 @@ export default class GoodsTable extends Component {
     });
   };
 
-  handleDetail = () => {
-    Dialog.confirm({
-      title: '提示',
-      content: '暂不支持查看详情',
-    });
+  handleDetail = (data) => {
+    this.props.history.push(`/membership/${data.user_id}`);
   };
 
-  renderOper = () => {
+  renderOper = (val, index, data) => {
+    console.log('data', data);
     return (
       <div>
         <Button
           type="primary"
           style={{ marginRight: '5px' }}
-          onClick={this.handleDetail}
+          onClick={() => this.handleDetail(data)}
         >
           详情
         </Button>
