@@ -128,5 +128,3 @@ export default class GoodsTable extends Component {
     );
   }
 }
-
-
