@@ -81,8 +81,7 @@ export default class EditUserInfo extends Component {
   render() {
     return (
       this.id ?
-        (this.state.loading ? <div></div> :
-          <Form options={this.state.options} onSubmit={this.onSubmit} value={this.state.value} />) :
+        <Form options={this.state.options} onSubmit={this.onSubmit} value={this.state.value} /> :
         <Redirect to="/membership" />
     );
   }
