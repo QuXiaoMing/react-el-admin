@@ -3,7 +3,10 @@
     "vetur.format.options.tabSize": 4,
     "prettier.eslintIntegration": true,
     "prettier.jsxBracketSameLine": true,
-    "prettier.requireConfig": true,
+    "prettier.requireConfig": false,
     "prettier.singleQuote": true,
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "files.associations": {
+        "*.js": "javascriptreact"
+    },
 }
