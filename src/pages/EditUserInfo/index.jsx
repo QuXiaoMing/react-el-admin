@@ -3,7 +3,7 @@ import { Button, Message } from '@alifd/next';
 import SystermStore from '@/store/Systerm.js';
 import Form from '@/components/Form/index.jsx';
 import { withRouter, Redirect } from 'react-router-dom';
-import { getUserInfo } from '@/api/user';
+import { getUserInfo, editUserInfo } from '@/api/user';
 import { getRoleName, cloneDeep } from '@/utils';
 @withRouter
 export default class EditUserInfo extends Component {
@@ -69,10 +69,15 @@ export default class EditUserInfo extends Component {
     }
   }
 
-  onSubmit = (values) => {
+  onSubmit = async (values) => {
     try {
-      if (values.password !== values.newPassword) {
-        Message.error('两次密码不一致');
+      if (values.password && values.newPassword && values.password !== values.newPassword) {
+        return Message.error('两次密码不一致');
+      }
+      let ret = await editUserInfo(values);
+      console.log('TCL: EditUserInfo -> onSubmit -> ret', ret);
+      if (ret.isSuccess) {
+        Message.success('操作成功');
       }
     } catch (error) {
       console.error('onSubmit', error.message);
