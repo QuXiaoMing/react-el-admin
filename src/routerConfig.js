@@ -10,6 +10,7 @@ import OrderList from './pages/OrderList';
 import Goods from './pages/Goods';
 import Shop from './pages/Shop';
 import Membership from './pages/Membership';
+import EditUserInfo from './pages/EditUserInfo';
 import AddReserve from './pages/AddReserve';
 import Dic from './pages/Dic/Dic';
 import AddDic from './pages/Dic/AddDic';
@@ -49,6 +50,10 @@ const routerConfig = [
   {
     path: '/order',
     component: OrderList
+  },
+  {
+    path: '/membership/:id',
+    component: EditUserInfo
   },
   {
     path: '/membership',
