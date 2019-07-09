@@ -51,14 +51,9 @@ export default class GoodsTable extends Component {
   };
 
   handlePaginationChange = (pageNum) => {
-    this.setState(
-      {
-        pageNum,
-      },
-      () => {
-        this.fetchData();
-      }
-    );
+    this.setState({ pageNum }, () => {
+      this.fetchData();
+    });
   };
 
   handleFilterChange = (...arg) => {
