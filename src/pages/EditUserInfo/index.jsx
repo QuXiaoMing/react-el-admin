@@ -58,7 +58,6 @@ export default class EditUserInfo extends Component {
       if (ret.isSuccess) {
         console.log('userInfo', ret.data);
         let roles = ret.data.roles;
-        console.log('TCL: EditUserInfo -> fetechData -> getRoleName', getRoleName);
         let data = cloneDeep(ret.data);
         data.roles = getRoleName(roles);
         this.setState({ value: data, loading: false });
