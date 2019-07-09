@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Button, Message } from '@alifd/next';
+import SystermStore from '@/store/Systerm.js';
 import Form from '@/components/Form/index.jsx';
 import { withRouter, Redirect } from 'react-router-dom';
 import { getUserInfo } from '@/api/user';
-
+import { getRoleName, cloneDeep } from '@/utils';
 @withRouter
 export default class EditUserInfo extends Component {
   state = {
@@ -56,7 +57,11 @@ export default class EditUserInfo extends Component {
       let ret = await getUserInfo(this.id);
       if (ret.isSuccess) {
         console.log('userInfo', ret.data);
-        this.setState({ value: ret.data, loading: false });
+        let roles = ret.data.roles;
+        console.log('TCL: EditUserInfo -> fetechData -> getRoleName', getRoleName);
+        let data = cloneDeep(ret.data);
+        data.roles = getRoleName(roles);
+        this.setState({ value: data, loading: false });
       } else {
         this.props.history.push('/membership');
       }
@@ -76,8 +81,10 @@ export default class EditUserInfo extends Component {
   }
 
   componentWillMount() {
+    SystermStore.getRoleList();
     this.fetechData();
   }
+
   render() {
     return (
       this.id ?

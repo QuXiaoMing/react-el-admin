@@ -15,6 +15,7 @@
   },
   "plugins": ["react", "babel"],
   "rules": {
+    "eol-last": "off",
     "linebreak-style": "off",
     "arrow-parens": "off",
     "prefer-const": "off",
