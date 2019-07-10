@@ -139,7 +139,10 @@ export default class GoodsForm extends Component {
       let ret = await shopInfo(this.id);
       if (ret.isSuccess) {
         let data = cloneDeep(ret.data);
-        data.category = JSON.parse(data.category).id;
+        let category = JSON.parse(data.category);
+        if (category) {
+          data.category = JSON.parse(data.category).id;
+        }
         console.log('TCL: GoodsForm -> fetchData -> data.category', data.category);
         this.setState({
           value: data

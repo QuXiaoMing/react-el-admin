@@ -11,6 +11,7 @@ import {
   // Radio,
   // Select,
 } from '@alifd/next';
+import moment from 'moment';
 import {FormBinderWrapper as IceFormBinderWrapper, FormBinder as IceFormBinder, FormError as IceFormError} from '@icedesign/form-binder';
 import styles from './index.module.scss';
 
@@ -24,9 +25,14 @@ export default class From extends Component {
     value: {}
   };
 
+  get data() {
+    return this.props.value || this.state.value;
+  }
+
   render() {
+    console.warn('data', this.data);
     return (
-      <IceFormBinderWrapper value={this.props.value || this.state.value} onChange={this.formChange} ref="form">
+      <IceFormBinderWrapper value={this.data} onChange={this.formChange} ref="form">
         {this.props.options.map(option => {
           return this.renderFormItem(option);
         })}
@@ -146,7 +152,7 @@ export default class From extends Component {
       <div className={styles.formItem} required={option.required} key={option.key}>
         <div className={styles.formLabel}>{option.name}：</div>
         <IceFormBinder name={option.key} required={option.required} message={option.message || `${option.name}必填`}>
-          <TimePicker style={{width: '400px'}} />
+          <TimePicker style={{width: '400px'}} value={moment(this.data[option.key])} />
         </IceFormBinder>
         <div className={styles.formError}>
           <IceFormError name={option.key} />

@@ -6,7 +6,7 @@ const TreeNode = TreeSelect.Node;
 
 export default class CategoryTree extends React.Component {
   state = {
-    treeData: []
+    treeData: [{id: -1, name: '一级菜单'}]
   };
 
   constructor(props) {

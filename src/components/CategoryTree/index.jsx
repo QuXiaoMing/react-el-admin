@@ -9,12 +9,12 @@ export default class Demo extends React.Component {
   };
 
   render() {
-    let {name = 'parentId', message = '请选择父节点', label = '父节点'} = this.props;
+    let {name = 'parentId', message = '请选择父节点', label = '父节点', value = -1} = this.props;
     return (
       <div className={styles.formItem} required>
         <div className={styles.formLabel}>{label}：</div>
         <IceFormBinder name={name} required message={message}>
-          <Tree ref="tree" style={{width: '400px'}} value={this.props.value} />
+          <Tree ref="tree" style={{width: '400px'}} value={value} />
         </IceFormBinder>
         <div className={styles.formError}>
           <IceFormError name={name} />
