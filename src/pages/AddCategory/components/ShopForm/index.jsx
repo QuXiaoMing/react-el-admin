@@ -48,7 +48,7 @@ export default class GoodsForm extends Component {
     return (
       <div>
         {this.state.parentId}
-        <PageHead title="添加店铺" />
+        <PageHead title="添加分类" />
         <IceContainer style={{padding: '40px'}}>
           <Form options={this.state.options} onSubmit={this.onSubmit}>
             <div className={styles.formItem} required>

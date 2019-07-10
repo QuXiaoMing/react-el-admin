@@ -9,54 +9,54 @@ export default class Demo extends React.Component {
     treeData: [],
   };
 
-  constructor (props) {
-    super (props);
+  constructor(props) {
+    super(props);
 
-    this.handleChange = this.handleChange.bind (this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  componentWillMount () {
-    this.fetchData ();
+  componentWillMount() {
+    this.fetchData();
   }
 
   fetchData = async () => {
     try {
-      let ret = await getCategoryTree ();
+      let ret = await getCategoryTree();
       if (ret.isSuccess) {
-        this.setState ({
+        this.setState({
           treeData: ret.data,
         });
       }
-      console.log ('TCL: Demo -> asyncfetchData -> ret', ret);
+      console.log('TCL: Demo -> asyncfetchData -> ret', ret);
     } catch (error) {
-      console.error ('TCL: Demo -> asyncfetchData -> error', error);
+      console.error('TCL: Demo -> asyncfetchData -> error', error);
     }
   };
 
-  handleChange (value, data) {
+  handleChange(value, data) {
     typeof this.props.onChange === 'function' &&
-      this.props.onChange (value, data);
+      this.props.onChange(value, data);
   }
 
-  renderTreeNode (list) {
-    console.log ('TCL: Demo -> renderTreeNode -> list', list);
-    return list.map (data => (
+  renderTreeNode(list) {
+    console.log('TCL: Demo -> renderTreeNode -> list', list);
+    return list.map(data => (
       <TreeNode key={data.id} value={data.id} label={data.name}>
         {data.children &&
           data.children.length &&
-          this.renderTreeNode (data.children)}
+          this.renderTreeNode(data.children)}
       </TreeNode>
     ));
   }
 
-  render () {
+  render() {
     return (
       <TreeSelect
         style={this.props.style}
         treeDefaultExpandAll
         onChange={this.handleChange}
       >
-        {this.renderTreeNode (this.state.treeData)}
+        {this.renderTreeNode(this.state.treeData)}
       </TreeSelect>
     );
   }
