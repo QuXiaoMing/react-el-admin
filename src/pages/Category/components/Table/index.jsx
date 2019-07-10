@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Table, Pagination, Button, Dialog, Message } from '@alifd/next';
+import React, {Component} from 'react';
+import {Table, Pagination, Button, Dialog, Message} from '@alifd/next';
 import IceContainer from '@icedesign/container';
-import { shopList, deleteShop } from '@/api/shop';
+import {getCategoryList, deleteCategory} from '@/api';
 import Filter from '../Filter';
 import styles from './index.module.scss';
 
@@ -18,26 +18,26 @@ export default class GoodsTable extends Component {
     this.fetchData();
   }
 
-  fetchData = (params) => {
+  fetchData = params => {
     this.setState(
       {
         isLoading: true,
-        total: 0
+        total: 0,
       },
       async () => {
         try {
-          let { pageSize, pageNum } = this.state;
-          let ret = await shopList({
+          let {pageSize, pageNum} = this.state;
+          let ret = await getCategoryList({
             pageSize,
             pageNum,
-            ...params
+            ...params,
           });
           console.log('TCL: GoodsTable -> fetchData -> ret', ret);
           if (ret && ret.isSuccess) {
             this.setState({
               data: ret.data.list,
               isLoading: false,
-              total: ret.data.total
+              total: ret.data.total,
             });
           }
           this.setState({
@@ -50,7 +50,7 @@ export default class GoodsTable extends Component {
     );
   };
 
-  handlePaginationChange = (pageNum) => {
+  handlePaginationChange = pageNum => {
     this.setState(
       {
         pageNum,
@@ -66,19 +66,21 @@ export default class GoodsTable extends Component {
     this.fetchData(...arg);
   };
 
-  handleDelete = (id) => {
+  handleDelete = id => {
     Dialog.confirm({
       title: '提示',
       content: '确认删除吗',
       onOk: () => {
-        deleteShop(id).then(ret => {
-          if (ret && ret.isSuccess) {
-            Message.success('删除成功');
-            this.fetchData();
-          }
-        }).catch(error => {
-          console.error('删除失败', error.message);
-        });
+        deleteCategory(id)
+          .then(ret => {
+            if (ret && ret.isSuccess) {
+              Message.success('删除成功');
+              this.fetchData();
+            }
+          })
+          .catch(error => {
+            console.error('删除失败', error.message);
+          });
       },
     });
   };
@@ -90,12 +92,12 @@ export default class GoodsTable extends Component {
     });
   };
 
-  renderOper = (val, index, { id }) => {
+  renderOper = (val, index, {id}) => {
     return (
       <div>
         <Button
           type="primary"
-          style={{ marginRight: '5px' }}
+          style={{marginRight: '5px'}}
           onClick={this.handleDetail}
         >
           详情
@@ -108,7 +110,7 @@ export default class GoodsTable extends Component {
   };
 
   render() {
-    const { isLoading, data, pageNum, total, pageSize } = this.state;
+    const {isLoading, data, pageNum, total, pageSize} = this.state;
 
     return (
       <div className={styles.container}>
@@ -117,9 +119,9 @@ export default class GoodsTable extends Component {
         </IceContainer>
         <IceContainer>
           <Table loading={isLoading} dataSource={data} hasBorder={false}>
-            <Table.Column title="商品名称" dataIndex="name" />
-            <Table.Column title="商品分类" dataIndex="category" />
-            <Table.Column title="门店地址" dataIndex="address" />
+            <Table.Column title="ID" dataIndex="id" />
+            <Table.Column title="分类名称" dataIndex="name" />
+            <Table.Column title="父节点ID" dataIndex="parentId" />
             <Table.Column
               title="操作"
               width={200}
