@@ -11,10 +11,9 @@ import {
   // Radio,
   // Select,
 } from '@alifd/next';
-import moment from 'moment';
 import {FormBinderWrapper as IceFormBinderWrapper, FormBinder as IceFormBinder, FormError as IceFormError} from '@icedesign/form-binder';
+import moment from 'moment';
 import styles from './index.module.scss';
-
 // const { Option } = Select;
 const {Group: CheckboxGroup} = Checkbox;
 // const { Group: RadioGroup } = Radio;
@@ -148,11 +147,12 @@ export default class From extends Component {
 
   // TimePicker
   renderFormTimePicker = option => {
+    let value = moment('12:00:00', 'HH:mm:ss', true);
     return (
       <div className={styles.formItem} required={option.required} key={option.key}>
         <div className={styles.formLabel}>{option.name}：</div>
         <IceFormBinder name={option.key} required={option.required} message={option.message || `${option.name}必填`}>
-          <TimePicker style={{width: '400px'}} value={moment(this.data[option.key])} />
+          <TimePicker name={option.key} style={{width: '400px'}} value={value} />
         </IceFormBinder>
         <div className={styles.formError}>
           <IceFormError name={option.key} />
