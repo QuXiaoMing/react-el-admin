@@ -1,5 +1,6 @@
 /* eslint react/no-string-refs:0 */
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 import {
   Input,
   Button,
@@ -19,6 +20,7 @@ const {Group: CheckboxGroup} = Checkbox;
 // const { Group: RadioGroup } = Radio;
 // const { RangePicker } = DatePicker;
 
+@withRouter
 export default class From extends Component {
   state = {
     value: {}
@@ -29,7 +31,7 @@ export default class From extends Component {
   }
 
   render() {
-    let {options = []} = this.props;
+    let {options = [], history} = this.props;
     console.log('TCL: From -> render -> options', options);
     return (
       <IceFormBinderWrapper value={this.data} onChange={this.formChange} ref="form">
@@ -39,6 +41,9 @@ export default class From extends Component {
         {this.props.children}
         <Button type="primary" onClick={this.validateAllFormField}>
           提 交
+        </Button>
+        <Button style={{marginLeft: '5px'}} onClick={history.goBack}>
+          返 回
         </Button>
       </IceFormBinderWrapper>
     );
