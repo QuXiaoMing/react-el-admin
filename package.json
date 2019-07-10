@@ -24,6 +24,7 @@
     "@icedesign/layout": "^1.x",
     "@icedesign/theme": "^1.x",
     "bizcharts": "^3.2.2",
+    "dayjs": "^1.8.15",
     "enquire-js": "^0.1.2",
     "lodash-es": "^4.17.11",
     "lodash.clonedeep": "^4.5.0",
