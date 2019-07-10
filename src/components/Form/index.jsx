@@ -172,7 +172,7 @@ export default class From extends Component {
           required={option.required}
           message={option.message || `${option.name}必填`}
         >
-          <TimePicker />
+          <TimePicker style={{width: '400px'}} />
         </IceFormBinder>
         <div className={styles.formError}>
           <IceFormError name={option.key} />
