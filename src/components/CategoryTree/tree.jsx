@@ -34,7 +34,9 @@ export default class CategoryTree extends React.Component {
   };
 
   handleChange(value, data) {
-    typeof this.props.onChange === 'function' && this.props.onChange(value, data);
+    if (typeof this.props.onChange === 'function') {
+      this.props.onChange(value, data);
+    }
   }
 
   renderTreeNode(list) {

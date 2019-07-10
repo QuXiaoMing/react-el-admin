@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {Table, Pagination, Button, Dialog, Message} from '@alifd/next';
 import IceContainer from '@icedesign/container';
 import {shopList, deleteShop} from '@/api/shop';
+import {dateFormate} from '@/utils';
 import {withRouter} from 'react-router-dom';
 import Filter from '../Filter';
 import styles from './index.module.scss';
-import {dateFormate} from '@/utils';
 
 @withRouter
 export default class GoodsTable extends Component {
