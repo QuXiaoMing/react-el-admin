@@ -54,9 +54,9 @@
         ]
       }
     ],
-    "import/extensions": 0,
-    "import/no-unresolved": 0,
-    "import/no-extraneous-dependencies": 0,
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "import/no-extraneous-dependencies": "off",
     "prefer-destructuring": 0,
     "no-param-reassign": 0,
     "no-return-assign": 0,

@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import IceContainer from '@icedesign/container';
 import {Message} from '@alifd/next';
 import Form from '_c/Form';
+import CategoryTree from '_c/CategoryTree';
+import ImageCardUpload from '_c/Upload/ImageCardUpload/index.jsx';
 import {createGoods, editGoods, goodsDetail} from '@/api';
 import {withRouter} from 'react-router-dom';
 import PageHead from '../../../../components/PageHead';
@@ -21,10 +23,6 @@ export default class GoodsForm extends Component {
         key: 'stock',
         name: '库存',
         required: true
-      },
-      {
-        key: 'images',
-        name: '图片地址'
       },
       {
         key: 'remark',
@@ -65,6 +63,10 @@ export default class GoodsForm extends Component {
     try {
       let {history} = this.props;
       let api = this.id ? editGoods : createGoods;
+      let {imagesData} = values;
+      if (imagesData && imagesData.length) {
+        values.images = imagesData.map(e => e.imgURL).join(',');
+      }
       let ret = await api(values);
       console.log('TCL: GoodsForm -> onSubmit -> ret', ret);
       if (ret.isSuccess) {
@@ -83,7 +85,10 @@ export default class GoodsForm extends Component {
       <div>
         <PageHead title={title} />
         <IceContainer style={{padding: '40px'}}>
-          <Form value={value} options={options} onSubmit={this.onSubmit} />
+          <Form value={value} options={options} onSubmit={this.onSubmit}>
+            <CategoryTree name="category" message="请选择店铺分类" label="店铺分类" />
+            <ImageCardUpload name="imagesData" />
+          </Form>
         </IceContainer>
       </div>
     );
