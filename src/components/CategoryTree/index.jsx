@@ -14,7 +14,7 @@ export default class Demo extends React.Component {
       <div className={styles.formItem} required>
         <div className={styles.formLabel}>{label}：</div>
         <IceFormBinder name={name} required message={message}>
-          <Tree ref="tree" style={{width: '400px'}} />
+          <Tree ref="tree" style={{width: '400px'}} value={this.props.value} />
         </IceFormBinder>
         <div className={styles.formError}>
           <IceFormError name={name} />

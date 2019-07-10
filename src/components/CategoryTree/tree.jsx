@@ -50,7 +50,7 @@ export default class CategoryTree extends React.Component {
 
   render() {
     return (
-      <TreeSelect style={this.props.style} treeDefaultExpandAll onChange={this.handleChange}>
+      <TreeSelect value={this.props.value} style={this.props.style} treeDefaultExpandAll onChange={this.handleChange}>
         {this.renderTreeNode(this.state.treeData)}
       </TreeSelect>
     );
