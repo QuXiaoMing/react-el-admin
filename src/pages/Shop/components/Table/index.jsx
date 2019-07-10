@@ -5,6 +5,7 @@ import {shopList, deleteShop} from '@/api/shop';
 import {withRouter} from 'react-router-dom';
 import Filter from '../Filter';
 import styles from './index.module.scss';
+import {dateFormate} from '@/utils';
 
 @withRouter
 export default class GoodsTable extends Component {
@@ -91,6 +92,17 @@ export default class GoodsTable extends Component {
     this.props.history.push(`/shop/${id}`);
   };
 
+  renderCategory = jsonString => {
+    let data = JSON.parse(jsonString);
+    if (data) {
+      return <span>{data.name}</span>;
+    }
+  };
+
+  renderDate = date => {
+    return <span>{dateFormate(date)}</span>;
+  };
+
   renderOper = (val, index, {id}) => {
     return (
       <div>
@@ -115,7 +127,12 @@ export default class GoodsTable extends Component {
         <IceContainer>
           <Table loading={isLoading} dataSource={data} hasBorder={false}>
             <Table.Column title="商品名称" dataIndex="name" />
-            <Table.Column title="商品分类" dataIndex="category" />
+            <Table.Column title="联系电话" dataIndex="phone" />
+            <Table.Column title="商品分类" dataIndex="category" cell={this.renderCategory} />
+            <Table.Column title="运费" dataIndex="float_delivery_fee" />
+            <Table.Column title="起送价" dataIndex="float_minimum_order_amount" />
+            <Table.Column title="开始营业时间" dataIndex="startTime" cell={this.renderDate} />
+            <Table.Column title="结束营业时间" dataIndex="endTime" cell={this.renderDate} />
             <Table.Column title="门店地址" dataIndex="address" />
             <Table.Column title="操作" width={200} dataIndex="oper" cell={this.renderOper} />
           </Table>
