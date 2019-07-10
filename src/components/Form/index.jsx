@@ -7,15 +7,11 @@ import {
   Select,
   // NumberPicker,
   // DatePicker,
-  Checkbox,
+  Checkbox
   // Radio,
   // Select,
 } from '@alifd/next';
-import {
-  FormBinderWrapper as IceFormBinderWrapper,
-  FormBinder as IceFormBinder,
-  FormError as IceFormError,
-} from '@icedesign/form-binder';
+import {FormBinderWrapper as IceFormBinderWrapper, FormBinder as IceFormBinder, FormError as IceFormError} from '@icedesign/form-binder';
 import styles from './index.module.scss';
 
 // const { Option } = Select;
@@ -25,7 +21,7 @@ const {Group: CheckboxGroup} = Checkbox;
 
 export default class From extends Component {
   state = {
-    value: {},
+    value: {}
   };
 
   formChange = value => {
@@ -38,7 +34,7 @@ export default class From extends Component {
         return;
       }
       console.log({
-        values,
+        values
       });
       if (typeof this.props.onSubmit === 'function') {
         this.props.onSubmit(values);
@@ -69,17 +65,9 @@ export default class From extends Component {
   // 下拉框
   renderFormSelect = option => {
     return (
-      <div
-        className={styles.formItem}
-        required={option.required}
-        key={option.key}
-      >
+      <div className={styles.formItem} required={option.required} key={option.key}>
         <div className={styles.formLabel}>{option.name}：</div>
-        <IceFormBinder
-          name={option.key}
-          required={option.required}
-          message={option.message || `${option.name}必填`}
-        >
+        <IceFormBinder name={option.key} required={option.required} message={option.message || `${option.name}必填`}>
           <Select>
             {option.options.map((e, index) => (
               <Select.Option key={index} value={e.value} disabled={e.disabled}>
@@ -97,21 +85,11 @@ export default class From extends Component {
   // 输入框
   renderFormInput = (option, {password} = {}) => {
     return (
-      <div
-        className={styles.formItem}
-        required={option.required}
-        key={option.key}
-      >
+      <div className={styles.formItem} required={option.required} key={option.key}>
         <div className={styles.formLabel}>{option.name}：</div>
-        <IceFormBinder
-          name={option.key}
-          required={option.required}
-          message={option.message || `${option.name}必填`}
-        >
+        <IceFormBinder name={option.key} required={option.required} message={option.message || `${option.name}必填`}>
           <Input
-            readOnly={
-              option.readOnly === true || option.readOnly === 'read-only'
-            }
+            readOnly={option.readOnly === true || option.readOnly === 'read-only'}
             htmlType={password ? 'password' : 'text'}
             placeholder={option.placeholder || `请输入${option.name}`}
             style={{width: '400px'}}
@@ -127,20 +105,10 @@ export default class From extends Component {
   // 多选框组
   renderFormcheckboxGroup = option => {
     return (
-      <div
-        className={styles.formItem}
-        required={option.required}
-        key={option.key}
-      >
+      <div className={styles.formItem} required={option.required} key={option.key}>
         <div className={styles.formLabel}>{option.name}：</div>
-        <IceFormBinder
-          name={option.key}
-          required={option.required}
-          message={option.message || `${option.name}必填`}
-        >
-          <CheckboxGroup>
-            {option.list.map(e => this.renderFormcheckbox(e))}
-          </CheckboxGroup>
+        <IceFormBinder name={option.key} required={option.required} message={option.message || `${option.name}必填`}>
+          <CheckboxGroup>{option.list.map(e => this.renderFormcheckbox(e))}</CheckboxGroup>
         </IceFormBinder>
         <div className={styles.formError}>
           <IceFormError name={option.key} />
@@ -161,17 +129,9 @@ export default class From extends Component {
   // TimePicker
   renderFormTimePicker = option => {
     return (
-      <div
-        className={styles.formItem}
-        required={option.required}
-        key={option.key}
-      >
+      <div className={styles.formItem} required={option.required} key={option.key}>
         <div className={styles.formLabel}>{option.name}：</div>
-        <IceFormBinder
-          name={option.key}
-          required={option.required}
-          message={option.message || `${option.name}必填`}
-        >
+        <IceFormBinder name={option.key} required={option.required} message={option.message || `${option.name}必填`}>
           <TimePicker style={{width: '400px'}} />
         </IceFormBinder>
         <div className={styles.formError}>
@@ -184,11 +144,7 @@ export default class From extends Component {
   render() {
     console.log(this.props.children);
     return (
-      <IceFormBinderWrapper
-        value={this.props.value || this.state.value}
-        onChange={this.formChange}
-        ref="form"
-      >
+      <IceFormBinderWrapper value={this.props.value || this.state.value} onChange={this.formChange} ref="form">
         {this.props.options.map(option => {
           return this.renderFormItem(option);
         })}

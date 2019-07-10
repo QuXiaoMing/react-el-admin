@@ -1,9 +1,6 @@
 import React from 'react';
 import styles from '_c/Form/index.module.scss';
-import {
-  FormBinder as IceFormBinder,
-  FormError as IceFormError,
-} from '@icedesign/form-binder';
+import {FormBinder as IceFormBinder, FormError as IceFormError} from '@icedesign/form-binder';
 import Tree from './tree';
 
 export default class Demo extends React.Component {
