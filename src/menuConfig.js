@@ -46,29 +46,14 @@ const asideMenuConfig = [
     icon: 'shopcar'
   },
   {
-    name: '添加商品',
-    path: '/add/goods',
-    icon: 'publish'
-  },
-  {
     name: '店铺管理',
     path: '/shop',
     icon: 'shopcar'
   },
   {
-    name: '添加店铺',
-    path: '/add/shop',
-    icon: 'publish'
-  },
-  {
     name: '预约管理',
     path: '/reserve',
     icon: 'clock'
-  },
-  {
-    name: '添加预约',
-    path: '/add/reserve',
-    icon: 'edit2'
   },
   {
     name: '订单管理',
