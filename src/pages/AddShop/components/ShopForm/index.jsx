@@ -147,7 +147,7 @@ export default class GoodsForm extends Component {
         <PageHead title="添加店铺" />
         <IceContainer style={{padding: '40px'}}>
           <Form options={this.state.options} onSubmit={this.onSubmit}>
-            <CategoryTree name="category" message="请选择店铺分类" />
+            <CategoryTree name="category" message="请选择店铺分类" label="店铺分类" />
           </Form>
         </IceContainer>
       </div>
