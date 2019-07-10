@@ -6,7 +6,7 @@ const TreeNode = TreeSelect.Node;
 
 export default class CategoryTree extends React.Component {
   state = {
-    treeData: [],
+    treeData: []
   };
 
   constructor(props) {
@@ -24,7 +24,7 @@ export default class CategoryTree extends React.Component {
       let ret = await getCategoryTree();
       if (ret.isSuccess) {
         this.setState({
-          treeData: ret.data,
+          treeData: [{id: -1, name: '一级菜单'}, ...ret.data]
         });
       }
       console.log('TCL: Demo -> asyncfetchData -> ret', ret);
@@ -34,28 +34,21 @@ export default class CategoryTree extends React.Component {
   };
 
   handleChange(value, data) {
-    typeof this.props.onChange === 'function' &&
-      this.props.onChange(value, data);
+    typeof this.props.onChange === 'function' && this.props.onChange(value, data);
   }
 
   renderTreeNode(list) {
     console.log('TCL: Demo -> renderTreeNode -> list', list);
     return list.map(data => (
       <TreeNode key={data.id} value={data.id} label={data.name}>
-        {data.children &&
-          data.children.length &&
-          this.renderTreeNode(data.children)}
+        {data.children && data.children.length && this.renderTreeNode(data.children)}
       </TreeNode>
     ));
   }
 
   render() {
     return (
-      <TreeSelect
-        style={this.props.style}
-        treeDefaultExpandAll
-        onChange={this.handleChange}
-      >
+      <TreeSelect style={this.props.style} treeDefaultExpandAll onChange={this.handleChange}>
         {this.renderTreeNode(this.state.treeData)}
       </TreeSelect>
     );

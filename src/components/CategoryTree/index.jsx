@@ -4,15 +4,17 @@ import {FormBinder as IceFormBinder, FormError as IceFormError} from '@icedesign
 import Tree from './tree';
 
 export default class Demo extends React.Component {
-  render() {
-    console.log('TCL: Demo -> render -> this.props', this.props);
-    let {name = 'parentId', message = '请选择父节点', label = '父节点'} = this.props;
+  fetchData = () => {
+    return this.refs.tree.fetchData();
+  };
 
+  render() {
+    let {name = 'parentId', message = '请选择父节点', label = '父节点'} = this.props;
     return (
       <div className={styles.formItem} required>
         <div className={styles.formLabel}>{label}：</div>
         <IceFormBinder name={name} required message={message}>
-          <Tree style={{width: '400px'}} />
+          <Tree ref="tree" style={{width: '400px'}} />
         </IceFormBinder>
         <div className={styles.formError}>
           <IceFormError name={name} />

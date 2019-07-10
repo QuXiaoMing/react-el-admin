@@ -15,23 +15,26 @@ export default class GoodsForm extends Component {
       {
         name: '分类名称',
         key: 'name',
-        required: true,
-      },
-    ],
+        required: true
+      }
+    ]
   };
 
   onSubmit = async value => {
     try {
       let ret = await createCategory({
         parentId: this.state.parentId,
-        ...value,
+        ...value
       });
       console.log('ret', ret);
       if (ret && ret.isSuccess) {
         Message.success('操作成功');
 
         setTimeout(() => {
-          this.refs.tree.fetchData();
+          console.log('TCL: GoodsForm -> this.refs.tree', typeof this.refs.tree.fetchData === 'function');
+          if (typeof this.refs.tree.fetchData === 'function') {
+            this.refs.tree.fetchData();
+          }
         }, 500);
       }
     } catch (error) {
