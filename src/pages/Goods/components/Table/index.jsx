@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import {Table, Pagination, Button, Dialog} from '@alifd/next';
 import IceContainer from '@icedesign/container';
 import {getGoodsList, deleteGoods} from '@/api';
+import {withRouter} from 'react-router-dom';
 import Filter from '../Filter';
 import styles from './index.module.scss';
 
+@withRouter
 export default class GoodsTable extends Component {
   state = {
     current: 1,
@@ -51,7 +53,7 @@ export default class GoodsTable extends Component {
   };
 
   handleFilterChange = () => {
-    this.fetchData(5);
+    this.fetchData();
   };
 
   handleDelete = id => {
@@ -70,17 +72,14 @@ export default class GoodsTable extends Component {
     });
   };
 
-  handleDetail = () => {
-    Dialog.confirm({
-      title: '提示',
-      content: '暂不支持查看详情'
-    });
+  handleDetail = id => {
+    this.props.history.push(`goods/${id}`);
   };
 
   renderOper = id => {
     return (
       <div>
-        <Button type="primary" style={{marginRight: '5px'}} onClick={this.handleDetail}>
+        <Button type="primary" style={{marginRight: '5px'}} onClick={() => this.handleDetail(id)}>
           详情
         </Button>
         <Button type="normal" warning onClick={() => this.handleDelete(id)}>
