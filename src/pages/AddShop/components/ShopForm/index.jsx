@@ -9,6 +9,32 @@ import CategoryTree from '_c/CategoryTree';
 import {withRouter} from 'react-router-dom';
 import PageHead from '../../../../components/PageHead';
 
+const promotionList = [
+  {
+    label: '品牌保证',
+    value: 'is_premium'
+  },
+  {
+    label: '蜂鸟专送',
+    value: 'delivery_mode'
+  },
+  {
+    label: '新开店铺',
+    value: 'is_new'
+  },
+  {
+    label: '支持保险',
+    value: 'is_bao'
+  },
+  {
+    label: '准时达',
+    value: 'is_zhun'
+  },
+  {
+    label: '开发票',
+    value: 'is_piao'
+  }
+];
 @withRouter
 export default class GoodsForm extends Component {
   state = {
@@ -64,33 +90,8 @@ export default class GoodsForm extends Component {
       {
         formType: 'checkboxGroup',
         name: '店铺特点',
-        key: 'promotion_feature',
-        list: [
-          {
-            label: '品牌保证',
-            value: 'is_premium'
-          },
-          {
-            label: '蜂鸟专送',
-            value: 'delivery_mode'
-          },
-          {
-            label: '新开店铺',
-            value: 'is_new'
-          },
-          {
-            label: '支持保险',
-            value: 'is_bao'
-          },
-          {
-            label: '准时达',
-            value: 'is_zhun'
-          },
-          {
-            label: '开发票',
-            value: 'is_piao'
-          }
-        ]
+        key: 'promotionFeature',
+        list: promotionList
       },
       {
         formType: 'input',
@@ -140,9 +141,16 @@ export default class GoodsForm extends Component {
       if (ret.isSuccess) {
         let data = cloneDeep(ret.data);
         let category = JSON.parse(data.category);
+        let promotionFeature = [];
         if (category) {
           data.category = JSON.parse(data.category).id;
         }
+        promotionList.forEach(({value}) => {
+          if (data[value]) {
+            promotionFeature.push(value);
+          }
+        });
+        data.promotionFeature = promotionFeature;
         console.log('TCL: GoodsForm -> fetchData -> data.category', data.category);
         this.setState({
           value: data
@@ -161,6 +169,13 @@ export default class GoodsForm extends Component {
   onSubmit = async value => {
     try {
       let api = this.id ? editShop : createShop;
+      if (value.promotionFeature && value.promotionFeature.length) {
+        value.promotionFeature.forEach(element => {
+          if (value.hasOwnProperty(element)) {
+            value[element] = true;
+          }
+        });
+      }
       let ret = await api(value);
       console.log('ret', ret);
       if (ret && ret.isSuccess) {

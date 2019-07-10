@@ -123,11 +123,12 @@ export default class From extends Component {
 
   // 多选框组
   renderFormcheckboxGroup = option => {
+    console.log('TCL: option', option);
     return (
-      <div className={styles.formItem} required={option.required} key={option.key}>
+      <div className={styles.formItem}>
         <div className={styles.formLabel}>{option.name}：</div>
-        <IceFormBinder name={option.key} required={option.required} message={option.message || `${option.name}必填`}>
-          <CheckboxGroup>{option.list.map(e => this.renderFormcheckbox(e))}</CheckboxGroup>
+        <IceFormBinder name={option.key}>
+          <CheckboxGroup name={option.key}>{option.list.map(e => this.renderFormcheckbox(e))}</CheckboxGroup>
         </IceFormBinder>
         <div className={styles.formError}>
           <IceFormError name={option.key} />
