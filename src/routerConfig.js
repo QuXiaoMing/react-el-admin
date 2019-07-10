@@ -46,6 +46,10 @@ const routerConfig = [
     component: Goods
   },
   {
+    path: '/shop/:id',
+    component: AddShop
+  },
+  {
     path: '/shop',
     component: Shop
   },

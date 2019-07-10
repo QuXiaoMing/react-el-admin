@@ -1,24 +1,26 @@
-import React, { Component } from 'react';
-import { Table, Pagination, Button, Dialog, Message } from '@alifd/next';
+import React, {Component} from 'react';
+import {Table, Pagination, Button, Dialog, Message} from '@alifd/next';
 import IceContainer from '@icedesign/container';
-import { shopList, deleteShop } from '@/api/shop';
+import {shopList, deleteShop} from '@/api/shop';
+import {withRouter} from 'react-router-dom';
 import Filter from '../Filter';
 import styles from './index.module.scss';
 
+@withRouter
 export default class GoodsTable extends Component {
   state = {
     pageSize: 10,
     total: 0,
     pageNum: 1,
     isLoading: false,
-    data: [],
+    data: []
   };
 
   componentDidMount() {
     this.fetchData();
   }
 
-  fetchData = (params) => {
+  fetchData = params => {
     this.setState(
       {
         isLoading: true,
@@ -26,7 +28,7 @@ export default class GoodsTable extends Component {
       },
       async () => {
         try {
-          let { pageSize, pageNum } = this.state;
+          let {pageSize, pageNum} = this.state;
           let ret = await shopList({
             pageSize,
             pageNum,
@@ -41,7 +43,7 @@ export default class GoodsTable extends Component {
             });
           }
           this.setState({
-            isLoading: false,
+            isLoading: false
           });
         } catch (error) {
           console.error('TCL: GoodsTable -> fetchData -> error', error);
@@ -50,10 +52,10 @@ export default class GoodsTable extends Component {
     );
   };
 
-  handlePaginationChange = (pageNum) => {
+  handlePaginationChange = pageNum => {
     this.setState(
       {
-        pageNum,
+        pageNum
       },
       () => {
         this.fetchData();
@@ -66,38 +68,33 @@ export default class GoodsTable extends Component {
     this.fetchData(...arg);
   };
 
-  handleDelete = (id) => {
+  handleDelete = id => {
     Dialog.confirm({
       title: '提示',
       content: '确认删除吗',
       onOk: () => {
-        deleteShop(id).then(ret => {
-          if (ret && ret.isSuccess) {
-            Message.success('删除成功');
-            this.fetchData();
-          }
-        }).catch(error => {
-          console.error('删除失败', error.message);
-        });
-      },
+        deleteShop(id)
+          .then(ret => {
+            if (ret && ret.isSuccess) {
+              Message.success('删除成功');
+              this.fetchData();
+            }
+          })
+          .catch(error => {
+            console.error('删除失败', error.message);
+          });
+      }
     });
   };
 
-  handleDetail = () => {
-    Dialog.confirm({
-      title: '提示',
-      content: '暂不支持查看详情',
-    });
+  handleDetail = (id = '') => {
+    this.props.history.push(`/shop/${id}`);
   };
 
-  renderOper = (val, index, { id }) => {
+  renderOper = (val, index, {id}) => {
     return (
       <div>
-        <Button
-          type="primary"
-          style={{ marginRight: '5px' }}
-          onClick={this.handleDetail}
-        >
+        <Button type="primary" style={{marginRight: '5px'}} onClick={() => this.handleDetail(id)}>
           详情
         </Button>
         <Button type="normal" warning onClick={() => this.handleDelete(id)}>
@@ -108,7 +105,7 @@ export default class GoodsTable extends Component {
   };
 
   render() {
-    const { isLoading, data, pageNum, total, pageSize } = this.state;
+    const {isLoading, data, pageNum, total, pageSize} = this.state;
 
     return (
       <div className={styles.container}>
@@ -120,20 +117,9 @@ export default class GoodsTable extends Component {
             <Table.Column title="商品名称" dataIndex="name" />
             <Table.Column title="商品分类" dataIndex="category" />
             <Table.Column title="门店地址" dataIndex="address" />
-            <Table.Column
-              title="操作"
-              width={200}
-              dataIndex="oper"
-              cell={this.renderOper}
-            />
+            <Table.Column title="操作" width={200} dataIndex="oper" cell={this.renderOper} />
           </Table>
-          <Pagination
-            className={styles.pagination}
-            current={pageNum}
-            total={total}
-            pageSize={pageSize}
-            onChange={this.handlePaginationChange}
-          />
+          <Pagination className={styles.pagination} current={pageNum} total={total} pageSize={pageSize} onChange={this.handlePaginationChange} />
         </IceContainer>
       </div>
     );
