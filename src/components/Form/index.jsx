@@ -24,6 +24,20 @@ export default class From extends Component {
     value: {}
   };
 
+  render() {
+    return (
+      <IceFormBinderWrapper value={this.props.value || this.state.value} onChange={this.formChange} ref="form">
+        {this.props.options.map(option => {
+          return this.renderFormItem(option);
+        })}
+        {this.props.children}
+        <Button type="primary" onClick={this.validateAllFormField}>
+          提 交
+        </Button>
+      </IceFormBinderWrapper>
+    );
+  }
+
   formChange = value => {
     console.log('value', value);
   };
@@ -140,19 +154,4 @@ export default class From extends Component {
       </div>
     );
   };
-
-  render() {
-    console.log(this.props.children);
-    return (
-      <IceFormBinderWrapper value={this.props.value || this.state.value} onChange={this.formChange} ref="form">
-        {this.props.options.map(option => {
-          return this.renderFormItem(option);
-        })}
-        {this.props.children}
-        <Button type="primary" onClick={this.validateAllFormField}>
-          提 交
-        </Button>
-      </IceFormBinderWrapper>
-    );
-  }
 }
