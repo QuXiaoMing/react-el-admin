@@ -9,6 +9,7 @@ import Asset from './pages/Asset';
 import OrderList from './pages/OrderList';
 import Goods from './pages/Goods';
 import Category from './pages/Category';
+import AddCategory from './pages/AddCategory';
 import Shop from './pages/Shop';
 import Membership from './pages/Membership';
 import EditUserInfo from './pages/EditUserInfo';
@@ -85,6 +86,10 @@ const routerConfig = [
   {
     path: '/category',
     component: Category
+  },
+  {
+    path: '/add/category',
+    component: AddCategory
   }
 ];
 
