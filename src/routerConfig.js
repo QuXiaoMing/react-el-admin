@@ -8,6 +8,7 @@ import Reserve from './pages/Reserve';
 import Asset from './pages/Asset';
 import OrderList from './pages/OrderList';
 import Goods from './pages/Goods';
+import Category from './pages/Category';
 import Shop from './pages/Shop';
 import Membership from './pages/Membership';
 import EditUserInfo from './pages/EditUserInfo';
@@ -79,6 +80,11 @@ const routerConfig = [
   {
     path: '/add/dic',
     component: AddDic
+  },
+  // 商品分类
+  {
+    path: '/category',
+    component: Category
   }
 ];
 

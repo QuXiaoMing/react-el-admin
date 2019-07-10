@@ -7,6 +7,6 @@
     "prettier.singleQuote": true,
     "editor.tabSize": 2,
     "files.associations": {
-        "*.js": "javascriptreact"
+        "*.js": "javascript"
     },
 }

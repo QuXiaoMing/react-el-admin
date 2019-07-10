@@ -41,6 +41,11 @@ const asideMenuConfig = [
     icon: 'shopcar'
   },
   {
+    name: '分类管理',
+    path: '/category',
+    icon: 'shopcar'
+  },
+  {
     name: '添加商品',
     path: '/add/goods',
     icon: 'publish'

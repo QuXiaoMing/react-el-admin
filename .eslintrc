@@ -19,6 +19,10 @@
   ],
   "rules": {
     "import/prefer-default-export": "off",
+    "semi": [
+      2,
+      "always"
+    ],
     "eol-last": "off",
     "linebreak-style": "off",
     "arrow-parens": "off",
