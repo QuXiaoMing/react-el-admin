@@ -29,10 +29,11 @@ export default class From extends Component {
   }
 
   render() {
-    console.warn('data', this.data);
+    let {options = []} = this.props;
+    console.log('TCL: From -> render -> options', options);
     return (
       <IceFormBinderWrapper value={this.data} onChange={this.formChange} ref="form">
-        {this.props.options.map(option => {
+        {options.map(option => {
           return this.renderFormItem(option);
         })}
         {this.props.children}
