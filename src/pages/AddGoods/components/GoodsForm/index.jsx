@@ -18,6 +18,11 @@ export default class GoodsForm extends Component {
         required: true
       },
       {
+        key: 'stock',
+        name: '库存',
+        required: true
+      },
+      {
         key: 'images',
         name: '图片地址'
       },

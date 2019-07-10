@@ -101,11 +101,11 @@ export default class GoodsTable extends Component {
         <IceContainer>
           <Table loading={isLoading} dataSource={data} hasBorder={false}>
             <Table.Column title="商品名称" dataIndex="name" />
-            <Table.Column title="商品分类" dataIndex="cate" />
-            <Table.Column title="商品标签" dataIndex="tag" />
-            <Table.Column title="在售门店" dataIndex="store" />
-            <Table.Column title="总销量" dataIndex="sales" />
-            <Table.Column title="商品服务" dataIndex="service" />
+            <Table.Column title="库存" dataIndex="stock" />
+            <Table.Column title="价格" dataIndex="price" />
+            <Table.Column title="销量" dataIndex="sales" />
+            <Table.Column title="好评率" dataIndex="praise_rate" />
+            <Table.Column title="商品状态" dataIndex="status" />
             <Table.Column title="操作" width={200} dataIndex="id" cell={this.renderOper} />
           </Table>
           <Pagination className={styles.pagination} total={total} current={current} onChange={this.handlePaginationChange} />
