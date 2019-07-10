@@ -4,7 +4,7 @@ import {getCategoryTree} from '@/api';
 
 const TreeNode = TreeSelect.Node;
 
-export default class Demo extends React.Component {
+export default class CategoryTree extends React.Component {
   state = {
     treeData: [],
   };
