@@ -89,6 +89,14 @@ export default class GoodsTable extends Component {
     );
   };
 
+  renderImages = (images = '') => {
+    return images.split(',').map((e, index) => (
+      <a key={index} href={e} target="_blank">
+        <img style={{width: '50px'}} alt={e} src={e} />{' '}
+      </a>
+    ));
+  };
+
   render() {
     const {isLoading, data, current, total} = this.state;
 
@@ -99,6 +107,7 @@ export default class GoodsTable extends Component {
         </IceContainer>
         <IceContainer>
           <Table loading={isLoading} dataSource={data} hasBorder={false}>
+            <Table.Column title="图片" dataIndex="images" cell={this.renderImages} />
             <Table.Column title="商品名称" dataIndex="name" />
             <Table.Column title="商品分类" dataIndex="category" />
             <Table.Column title="库存" dataIndex="stock" />
@@ -106,6 +115,7 @@ export default class GoodsTable extends Component {
             <Table.Column title="销量" dataIndex="sales" />
             <Table.Column title="好评率" dataIndex="praise_rate" />
             <Table.Column title="商品状态" dataIndex="status" />
+            <Table.Column title="描述" dataIndex="remark" />
             <Table.Column title="操作" width={200} dataIndex="id" cell={this.renderOper} />
           </Table>
           <Pagination className={styles.pagination} total={total} current={current} onChange={this.handlePaginationChange} />
