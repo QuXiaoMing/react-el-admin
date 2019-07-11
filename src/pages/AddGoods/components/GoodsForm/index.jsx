@@ -8,7 +8,6 @@ import ImageCardUpload from '_c/Upload/ImageCardUpload/index.jsx';
 import {createGoods, editGoods, goodsDetail} from '@/api';
 import {withRouter} from 'react-router-dom';
 import PageHead from '../../../../components/PageHead';
-
 @withRouter
 export default class GoodsForm extends Component {
   state = {
