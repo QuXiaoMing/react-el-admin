@@ -3,9 +3,10 @@ import React, {Component} from 'react';
 import IceContainer from '@icedesign/container';
 import {Message} from '@alifd/next';
 import Form from '_c/Form';
-import {cloneDeep} from '@/utils';
+import {cloneDeep, getUploadImageUrl, parseImageFromUrl} from '@/utils';
 import {createShop, editShop, shopInfo} from '@/api/shop';
 import CategoryTree from '_c/CategoryTree';
+import ImageCardUpload from '_c/Upload/ImageCardUpload';
 import {withRouter} from 'react-router-dom';
 import PageHead from '../../../../components/PageHead';
 
@@ -61,12 +62,6 @@ export default class GoodsForm extends Component {
       },
       {
         formType: 'input',
-        name: '店铺图片地址',
-        key: 'image_path',
-        required: true
-      },
-      {
-        formType: 'input',
         name: '运费',
         key: 'float_delivery_fee',
         required: true
@@ -92,18 +87,6 @@ export default class GoodsForm extends Component {
         name: '店铺特点',
         key: 'promotionFeature',
         list: promotionList
-      },
-      {
-        formType: 'input',
-        name: '营业执照图片地址',
-        key: 'business_license_image',
-        required: true
-      },
-      {
-        formType: 'input',
-        name: '餐饮服务许可证图片地址',
-        key: 'catering_service_license_image',
-        required: true
       },
       {
         formType: 'input',
@@ -138,9 +121,11 @@ export default class GoodsForm extends Component {
   fetchData = async () => {
     try {
       let ret = await shopInfo(this.id);
+      console.warn('TCL: GoodsForm -> fetchData -> ret', ret);
       if (ret.isSuccess) {
         let data = cloneDeep(ret.data);
         let category = JSON.parse(data.category);
+        // 处理店铺特色字段
         let promotionFeature = [];
         if (category) {
           data.category = JSON.parse(data.category).id;
@@ -151,6 +136,10 @@ export default class GoodsForm extends Component {
           }
         });
         data.promotionFeature = promotionFeature;
+        // 处理图片
+        data.image_path_data = parseImageFromUrl(data.image_path);
+        data.business_license_image_data = parseImageFromUrl(data.business_license_image);
+        data.catering_service_license_image_data = parseImageFromUrl(data.catering_service_license_image);
         console.log('TCL: GoodsForm -> fetchData -> data.category', data.category);
         this.setState({
           value: data
@@ -169,6 +158,7 @@ export default class GoodsForm extends Component {
   onSubmit = async value => {
     try {
       let api = this.id ? editShop : createShop;
+      // 店铺特点
       if (value.promotionFeature && value.promotionFeature.length) {
         value.promotionFeature.forEach(element => {
           if (value.hasOwnProperty(element)) {
@@ -176,6 +166,10 @@ export default class GoodsForm extends Component {
           }
         });
       }
+      // 获取图片地址
+      value.image_path = getUploadImageUrl(value.image_path_data);
+      value.business_license_image = getUploadImageUrl(value.business_license_image_data);
+      value.catering_service_license_image = getUploadImageUrl(value.catering_service_license_image_data);
       let ret = await api(value);
       console.log('ret', ret);
       if (ret && ret.isSuccess) {
@@ -194,6 +188,9 @@ export default class GoodsForm extends Component {
         <IceContainer style={{padding: '40px'}}>
           <Form options={this.state.options} onSubmit={this.onSubmit} value={this.state.value}>
             <CategoryTree name="category" message="请选择店铺分类" label="店铺分类" />
+            <ImageCardUpload multiple={false} name="image_path_data" label="店铺图片地址" />
+            <ImageCardUpload multiple={false} name="business_license_image_data" label="营业执照图片地址" />
+            <ImageCardUpload multiple={false} name="catering_service_license_image_data" label="餐饮服务许可证图片地址" />
           </Form>
         </IceContainer>
       </div>
