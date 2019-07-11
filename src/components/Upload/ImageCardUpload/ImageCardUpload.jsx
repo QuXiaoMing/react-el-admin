@@ -53,10 +53,11 @@ export default class ImageCardUpload extends Component {
       onSuccess = _onSuccess,
       onError = _onError,
       formatter = defaultFormatter,
-      multiple = true
+      multiple = true,
+      value = []
     } = this.props;
     return (
-      <Upload.Card multiple={multiple} formatter={formatter} listType={listType} action={action} accept={accept} onPreview={onPreview} onChange={onChange} onSuccess={onSuccess} onError={onError} />
+      <Upload.Card value={value} multiple={multiple} formatter={formatter} listType={listType} action={action} accept={accept} onPreview={onPreview} onChange={onChange} onSuccess={onSuccess} onError={onError} />
     );
   }
 }

@@ -6,7 +6,8 @@ import ImageCardUpload from './ImageCardUpload';
 
 export default class ImageCardUploadForm extends Component {
   render() {
-    let {name = 'images', message = '请选择图片', label = '图片', value = -1} = this.props;
+    let {name = 'images', message = '请选择图片', label = '图片',  value} = this.props;
+    console.log('ImageCardUpload', value);
     return (
       <div className={styles.formItem} required>
         <div className={styles.formLabel}>{label}：</div>

@@ -64,7 +64,7 @@ export default class GoodsForm extends Component {
       let api = this.id ? editGoods : createGoods;
       let {imagesData} = values;
       if (imagesData && imagesData.length) {
-        values.images = imagesData.map(e => e.imgURL).join(',');
+        values.images = imagesData.map(e => e.imgURL || e.url).join(',');
       }
       let ret = await api(values);
       console.log('TCL: GoodsForm -> onSubmit -> ret', ret);
@@ -80,6 +80,18 @@ export default class GoodsForm extends Component {
   render() {
     let {options, value} = this.state;
     let title = this.id ? '编辑商品信息' : '添加商品';
+    if (value.images) {
+      value.imagesData = value.images.split(',').map(e => ({
+        success: true,
+        url: e
+      }));
+    }
+    // let imageList = value.images
+    //   ? value.images.split(',').map(e => ({
+    //     success: true,
+    //     url: e
+    //   }))
+    //   : [];
     return (
       <div>
         <PageHead title={title} />
