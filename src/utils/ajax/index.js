@@ -7,8 +7,7 @@ import Result from './result';
 
 // const timeout = process.env.NODE_ENV === 'production' ? 10000 : 11000;
 const instance = axios.create({
-  baseURL: 'http://10.11.2.212:8081/',
-  // baseURL
+  baseURL
   // timeout
 });
 function responseErrorHandler(result) {

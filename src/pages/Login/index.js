@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
 import CreativeLogin from './components/CreativeLogin';
+import userStore from '@/store/User';
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  componentWillMount() {
+    if (userStore.isLogin) {
+      userStore.logout();
+    }
   }
 
   render() {
