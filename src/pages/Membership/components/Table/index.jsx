@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Table, Pagination, Button, Dialog} from '@alifd/next';
+import {withRouter} from 'react-router-dom';
 import IceContainer from '@icedesign/container';
-import {userList} from '@/api/user';
+import {userList, deleteUser} from '@/api/user';
 import FilterTag from '../FilterTag';
 import FilterForm from '../FilterForm';
 import styles from './index.module.scss';
-import {withRouter} from 'react-router-dom';
 import {dateFormate} from '../../../../utils';
 
 @withRouter
@@ -61,12 +61,15 @@ export default class GoodsTable extends Component {
     this.fetchData(5);
   };
 
-  handleDelete = () => {
+  handleDelete = data => {
+    console.log('TCL: GoodsTable -> handleDelete -> data', data);
     Dialog.confirm({
       title: '提示',
       content: '确认删除吗',
       onOk: () => {
-        this.fetchData(10);
+        deleteUser({id: data.user_id}).then(ret => {
+          return this.fetchData(10);
+        });
       }
     });
   };
@@ -87,7 +90,7 @@ export default class GoodsTable extends Component {
         <Button type="primary" style={{marginRight: '5px'}} onClick={() => this.handleDetail(data)}>
           详情
         </Button>
-        <Button type="normal" warning onClick={this.handleDelete}>
+        <Button type="normal" warning onClick={() => this.handleDelete(data)}>
           删除
         </Button>
       </div>
