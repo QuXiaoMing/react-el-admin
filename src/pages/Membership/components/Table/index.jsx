@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {Table, Pagination, Button, Dialog} from '@alifd/next';
 import {withRouter} from 'react-router-dom';
 import IceContainer from '@icedesign/container';
+import SystermStore from '@/store/Systerm.js';
 import {userList, deleteUser} from '@/api/user';
 import FilterTag from '../FilterTag';
 import FilterForm from '../FilterForm';
 import styles from './index.module.scss';
 import {dateFormate} from '../../../../utils';
-
 @withRouter
 export default class GoodsTable extends Component {
   state = {
@@ -82,6 +82,9 @@ export default class GoodsTable extends Component {
     console.log('TCL: GoodsTable -> readerDate -> val, index, data', val, index, data);
     return <div>{dateFormate(val)}</div>;
   };
+  readerRole = (val, index, data) => {
+    return <div>{SystermStore.getRole(data.roles).name || ''}</div>;
+  };
 
   renderOper = (val, index, data) => {
     console.log('data', data);
@@ -109,7 +112,7 @@ export default class GoodsTable extends Component {
         <IceContainer>
           <Table loading={isLoading} dataSource={data} hasBorder={false}>
             <Table.Column title="会员名称" dataIndex="user_name" />
-            <Table.Column title="会员等级" dataIndex="roles" />
+            <Table.Column title="会员角色" cell={this.readerRole} />
             <Table.Column title="会员余额(元)" dataIndex="balance" />
             <Table.Column title="累计消费(元)" dataIndex="accumulative" />
             <Table.Column title="注册时间" dataIndex="create_at" cell={this.readerDate} />
